@@ -8,10 +8,17 @@ class GameObject
 public:
 	GameObject(Vec2 position, std::string spriteFilePath);
 	virtual ~GameObject();
-	Sprite* getSprite();
-	float getRadius();
+	void setVelocity(float newX, float newY);
+	void setAcceleration(float newX, float newY);
 
-private:
-	Sprite* sprite;
+	Vec2 getPosition();
+
+	void updatePhysics(float dt);
+
 	float radius;
+	float theta;
+	Vec2 velocity;
+	Vec2 acceleration;
+
+	Sprite* sprite;
 };

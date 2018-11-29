@@ -1,6 +1,7 @@
 #pragma once
 #include "cocos2d.h"
 #include "Ship.h"
+#include "Bullet.h"
 
 using namespace cocos2d;
 
@@ -35,4 +36,6 @@ private:
 
 	Sprite* background;
 	Ship* ship;
+
+	std::vector<Bullet*> bulletList;
 };
