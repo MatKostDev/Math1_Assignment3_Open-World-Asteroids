@@ -30,9 +30,9 @@ void Gameplay::initSprites()
 
 	//add ship
 	ship = new Ship();
-	this->addChild(ship->getSprite(), 10);
+	this->addChild(ship->sprite, 10);
 	//set camera to follow ship
-	runAction(Follow::create(ship->getSprite()));
+	runAction(Follow::create(ship->sprite));
 }
 
 void Gameplay::initListeners()
@@ -81,14 +81,9 @@ void Gameplay::initKeyboardListener()
 //UPDATE
 void Gameplay::update(float dt)
 {
-	if (ship->isMovingForward)
-		ship->moveForward();
-	if (ship->isMovingBackward)
-		ship->moveBackward();
-	if (ship->isMovingLeft)
-		ship->moveLeft();
-	if (ship->isMovingRight)
-		ship->moveRight();
+	ship->updatePhysics(dt);
+	for (int i = 0; i < bulletList.size(); i++)
+		bulletList[i]->updatePhysics(dt);
 }
 
 //--- Callbacks ---//
@@ -174,12 +169,24 @@ void Gameplay::keyDownCallback(EventKeyboard::KeyCode keyCode, Event* event)
 	//WASD controls
 	if (keyCode == EventKeyboard::KeyCode::KEY_W)
 		ship->isMovingForward = true;
-	if (keyCode == EventKeyboard::KeyCode::KEY_S)
+	else if (keyCode == EventKeyboard::KeyCode::KEY_S)
 		ship->isMovingBackward = true;
 	if (keyCode == EventKeyboard::KeyCode::KEY_A)
 		ship->isMovingLeft = true;
-	if (keyCode == EventKeyboard::KeyCode::KEY_D)
+	else if (keyCode == EventKeyboard::KeyCode::KEY_D)
 		ship->isMovingRight = true;
+
+	if (keyCode == EventKeyboard::KeyCode::KEY_Q)
+		ship->isRotatingCounterClockwise = true;
+	else if (keyCode == EventKeyboard::KeyCode::KEY_E)
+		ship->isRotatingClockwise = true;
+
+	if (keyCode == EventKeyboard::KeyCode::KEY_SPACE)
+	{
+		Bullet* newBullet = new Bullet(ship->getPosition(), ship->theta);
+		bulletList.push_back(newBullet);
+		addChild(newBullet->sprite, 5);
+	}
 }
 
 void Gameplay::keyUpCallback(EventKeyboard::KeyCode keyCode, Event* event)
@@ -192,4 +199,9 @@ void Gameplay::keyUpCallback(EventKeyboard::KeyCode keyCode, Event* event)
 		ship->isMovingLeft = false;
 	if (keyCode == EventKeyboard::KeyCode::KEY_D)
 		ship->isMovingRight = false;
+
+	if (keyCode == EventKeyboard::KeyCode::KEY_Q)
+		ship->isRotatingCounterClockwise = false;
+	else if (keyCode == EventKeyboard::KeyCode::KEY_E)
+		ship->isRotatingClockwise = false;
 }
