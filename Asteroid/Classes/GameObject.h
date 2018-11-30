@@ -1,24 +1,27 @@
 #pragma once
 #include "cocos2d.h"
+#include "Vect2.h"
 
 using namespace cocos2d;
 
 class GameObject
 {
 public:
-	GameObject(Vec2 position, std::string spriteFilePath);
+	GameObject(Vect2 position, std::string spriteFilePath);
 	virtual ~GameObject();
-	void setVelocity(float newX, float newY);
-	void setAcceleration(float newX, float newY);
-
-	Vec2 getPosition();
-
-	void updatePhysics(float dt);
 
 	float radius;
 	float theta;
-	Vec2 velocity;
-	Vec2 acceleration;
+	Vect2 velocity;
+	Vect2 acceleration;
 
 	Sprite* sprite;
+
+	void setVelocity(float newX, float newY);
+	void setAcceleration(float newX, float newY);
+
+	Vect2 getPosition();
+	void destroySprite();
+
+	void updatePhysics(float dt);
 };

@@ -1,9 +1,9 @@
 #include "GameObject.h"
 
-GameObject::GameObject(Vec2 position, std::string spriteFilePath)
+GameObject::GameObject(Vect2 position, std::string spriteFilePath)
 {
 	sprite = Sprite::create(spriteFilePath);
-	sprite->setPosition(position);
+	sprite->setPosition(Vec2(position.x, position.y));
 	
 	setVelocity(0.f, 0.f);
 	setAcceleration(0.f, 0.f);
@@ -27,14 +27,20 @@ void GameObject::setAcceleration(float newX, float newY)
 	acceleration.y = newY;
 }
 
-Vec2 GameObject::getPosition()
+Vect2 GameObject::getPosition()
 {
-	return sprite->getPosition();
+	return Vect2(sprite->getPosition());
+}
+
+//removes the sprite from the screen
+void GameObject::destroySprite()
+{
+	sprite->runAction(RemoveSelf::create());
 }
 
 //updates the object's physics properties
 void GameObject::updatePhysics(float dt)
 {
 	velocity += acceleration * dt; //update velocity
-	sprite->setPosition(sprite->getPosition() + velocity * dt); //update position
+	sprite->setPosition(sprite->getPosition() + Vec2(velocity.x, velocity.y) * dt); //update position
 }

@@ -1,7 +1,7 @@
 #include "Ship.h"
 
 //start ship in the middle of the screen
-Ship::Ship() : GameObject::GameObject(Vec2(5000, 5000), "Ship.png"), MOVESPEED(300), MAX_VELOCITY(300)
+Ship::Ship() : GameObject::GameObject(Vect2(5000, 5000), "Ship.png"), MOVESPEED(300), MAX_VELOCITY(300)
 {
 	isMovingForward = false;
 	isMovingBackward = false;
@@ -15,28 +15,28 @@ Ship::Ship() : GameObject::GameObject(Vec2(5000, 5000), "Ship.png"), MOVESPEED(3
 //--MOVEMENT FUNCTIONS--
 void Ship::moveForward(float dt)
 {
-	velocity += Vec2(
+	velocity += Vect2(
 		sinf(theta / 180 * M_PI),
 		cosf(theta / 180 * M_PI))
 		* dt * MOVESPEED;
 }
 void Ship::moveBackward(float dt)
 {
-	velocity += Vec2(
+	velocity += Vect2(
 		-sinf(theta / 180 * M_PI),
 		-cosf(theta / 180 * M_PI))
 		* dt * MOVESPEED;
 }
 void Ship::moveLeft(float dt)
 {
-	velocity += Vec2(
+	velocity += Vect2(
 		-cosf(theta / 180 * M_PI),
 		sinf(theta / 180 * M_PI))
 		* dt * MOVESPEED;
 }
 void Ship::moveRight(float dt)
 {
-	velocity += Vec2(
+	velocity += Vect2(
 		cosf(theta / 180 * M_PI),
 		-sinf(theta / 180 * M_PI))
 		* dt * MOVESPEED;

@@ -2,13 +2,13 @@
 #include "cocos2d.h"
 #include "Ship.h"
 #include "Bullet.h"
+#include "ShootingShip.h"
 
 using namespace cocos2d;
 
 class Gameplay : public cocos2d::Scene
 {
 public:
-
 	CREATE_FUNC(Gameplay);
 	static Scene* createScene();
 
@@ -32,10 +32,12 @@ private:
 
 	EventListenerMouse* mouseListener;
 	EventListenerKeyboard* keyboardListener;
-	Vec2 mousePosition;
+	Vect2 mousePosition;
 
 	Sprite* background;
 	Ship* ship;
+
+	ShootingShip* shootingShip;
 
 	std::vector<Bullet*> bulletList;
 };
