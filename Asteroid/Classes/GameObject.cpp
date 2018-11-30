@@ -36,6 +36,7 @@ Vect2 GameObject::getPosition()
 void GameObject::destroySprite()
 {
 	sprite->runAction(RemoveSelf::create());
+	delete this;
 }
 
 //updates the object's physics properties

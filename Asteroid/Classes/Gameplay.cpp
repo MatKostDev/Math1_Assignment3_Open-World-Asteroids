@@ -37,6 +37,7 @@ void Gameplay::initSprites()
 	//shooting ship for testing
 	shootingShip = new ShootingShip(Vect2(4500, 4500));
 	this->addChild(shootingShip->sprite, 8);
+	ShootingShip::shootingShipList.push_back(shootingShip);
 }
 
 void Gameplay::initListeners()
@@ -85,19 +86,39 @@ void Gameplay::initKeyboardListener()
 //UPDATE
 void Gameplay::update(float dt)
 {
-	ship->updatePhysics(dt);
-	shootingShip->updatePhysics(dt, ship->getPosition());
+	ship->updatePhysics(dt); //update our ship
 
+	updateEnemyShips(dt); //update enemy ships
+
+	updateBullets(dt); //update bullets
+}
+
+void Gameplay::updateEnemyShips(float dt)
+{
 	//update all bullets and check for expired bullets
-	for (int i = 0; i < bulletList.size(); i++)
+	for (int i = 0; i < ShootingShip::shootingShipList.size(); i++)
 	{
-		bulletList[i]->updatePhysics(dt);
-		if (bulletList[i]->lifetime <= 0)
+		ShootingShip::shootingShipList[i]->updatePhysics(dt, ship->getPosition());
+
+		if (ShootingShip::shootingShipList[i]->shootTimer > 1.5) //delay between shots (in seconds)
 		{
-			bulletList[i]->destroySprite();
-			delete bulletList[i];
-			bulletList.erase(bulletList.begin() + i);
+			//shoot bullet and reset timer
+			this->addChild(ShootingShip::shootingShipList[i]->shootBullet()->sprite);
+			ShootingShip::shootingShipList[i]->shootTimer = 0;
 		}
+	}
+}
+
+void Gameplay::updateBullets(float dt)
+{
+	//update all bullets
+	for (int i = 0; i < FriendlyBullet::friendlyBulletList.size(); i++)
+	{
+		FriendlyBullet::friendlyBulletList[i]->updatePhysics(dt);
+	}
+	for (int i = 0; i < EnemyBullet::enemyBulletList.size(); i++)
+	{
+		EnemyBullet::enemyBulletList[i]->updatePhysics(dt);
 	}
 }
 
@@ -198,9 +219,7 @@ void Gameplay::keyDownCallback(EventKeyboard::KeyCode keyCode, Event* event)
 
 	if (keyCode == EventKeyboard::KeyCode::KEY_SPACE)
 	{
-		Bullet* newBullet = new Bullet(ship->getPosition(), ship->theta);
-		bulletList.push_back(newBullet);
-		addChild(newBullet->sprite, 5);
+		
 	}
 }
 

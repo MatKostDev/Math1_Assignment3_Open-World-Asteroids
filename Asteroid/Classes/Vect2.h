@@ -36,7 +36,7 @@ public:
 	Vect2 operator*=(const float scalar);
 	Vect2 operator/=(const float scalar);
 
-	float getMagnitude();
+	float getMagnitudeSquared();
 	float dotProduct(const Vect2 rhs);
 	float crossProduct(const Vect2 rhs);
 };

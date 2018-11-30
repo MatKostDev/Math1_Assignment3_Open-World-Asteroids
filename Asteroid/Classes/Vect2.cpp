@@ -165,9 +165,9 @@ Vect2 Vect2::operator/=(const float a)
 	return *this;
 }
 
-float Vect2::getMagnitude()
+float Vect2::getMagnitudeSquared()
 {
-	return sqrt((x * x) + (y * y)); //pythagorean theorum
+	return (x * x) + (y * y); //pythagorean theorum
 }
 
 float Vect2::dotProduct(const Vect2 rhs)
