@@ -1,6 +1,6 @@
 #pragma once
-#include "GameObject.h"
 #include "cocos2d.h"
+#include "FriendlyBullet.h"
 using namespace cocos2d;
 
 class Ship : public GameObject

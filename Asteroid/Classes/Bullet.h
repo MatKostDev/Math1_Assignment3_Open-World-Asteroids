@@ -3,12 +3,12 @@
 class Bullet : public GameObject
 {
 public:
-	Bullet(Vect2 position, float theta);
+	Bullet(Vect2 position, float shipTheta, std::string spriteFilePath);
 
-	const float SPEED;
-
+	float theta;
+	float moveSpeed;
 	float lifetime;
 
+	void moveBullet(float speed);
 	void updatePhysics(float dt);
 };
-

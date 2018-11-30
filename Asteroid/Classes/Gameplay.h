@@ -1,7 +1,8 @@
 #pragma once
 #include "cocos2d.h"
 #include "Ship.h"
-#include "Bullet.h"
+#include "EnemyBullet.h"
+#include "FriendlyBullet.h"
 #include "ShootingShip.h"
 
 using namespace cocos2d;
@@ -18,6 +19,8 @@ public:
 	void initMouseListener();
 	void initKeyboardListener();
 	void update(float dt);
+	void updateEnemyShips(float dt);
+	void updateBullets(float dt);
 
 	//Callbacks
 	void mouseDownCallback(Event* event);
@@ -38,6 +41,4 @@ private:
 	Ship* ship;
 
 	ShootingShip* shootingShip;
-
-	std::vector<Bullet*> bulletList;
 };

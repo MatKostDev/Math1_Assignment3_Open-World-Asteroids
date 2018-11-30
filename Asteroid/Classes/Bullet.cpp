@@ -1,15 +1,16 @@
 #include "Bullet.h"
 
-
-
-Bullet::Bullet(Vect2 position, float theta) : GameObject(position, "Bullet.png"), SPEED(900)
+Bullet::Bullet(Vect2 position, float shipTheta, std::string spriteFilePath) : GameObject(position, spriteFilePath)
 {
-	velocity += Vect2(
+	theta = shipTheta;
+}
+
+void Bullet::moveBullet(float speed)
+{
+	velocity = Vect2(
 		sinf(theta / 180 * M_PI),
 		cosf(theta / 180 * M_PI))
-		* SPEED;
-
-	lifetime = 1; //lifetime in seconds
+		* moveSpeed;
 }
 
 void Bullet::updatePhysics(float dt)
@@ -19,3 +20,4 @@ void Bullet::updatePhysics(float dt)
 
 	lifetime -= dt;
 }
+
