@@ -25,7 +25,7 @@ void Gameplay::initSprites()
 {
 	//add background
 	background = Sprite::create("TestingBackground.png");
-	background->setAnchorPoint(cocos2d::Vec2(0.0f, 0.0f));
+	background->setAnchorPoint(Vec2(0.0f, 0.0f));
 	this->addChild(background, 0);
 
 	//add ship
@@ -33,6 +33,10 @@ void Gameplay::initSprites()
 	this->addChild(ship->sprite, 10);
 	//set camera to follow ship
 	runAction(Follow::create(ship->sprite));
+
+	//shooting ship for testing
+	shootingShip = new ShootingShip(Vect2(4500, 4500));
+	this->addChild(shootingShip->sprite, 8);
 }
 
 void Gameplay::initListeners()
@@ -82,8 +86,19 @@ void Gameplay::initKeyboardListener()
 void Gameplay::update(float dt)
 {
 	ship->updatePhysics(dt);
+	shootingShip->updatePhysics(dt, ship->getPosition());
+
+	//update all bullets and check for expired bullets
 	for (int i = 0; i < bulletList.size(); i++)
+	{
 		bulletList[i]->updatePhysics(dt);
+		if (bulletList[i]->lifetime <= 0)
+		{
+			bulletList[i]->destroySprite();
+			delete bulletList[i];
+			bulletList.erase(bulletList.begin() + i);
+		}
+	}
 }
 
 //--- Callbacks ---//
@@ -155,7 +170,7 @@ void Gameplay::mouseMoveCallback(Event* event)
 	auto mouseEventPos = mouseEvent->getLocationInView();
 
 	//Store the position into the mouse struct
-	mousePosition = Vec2(mouseEventPos.x, 540 + mouseEventPos.y);
+	mousePosition = Vect2(mouseEventPos.x, 540 + mouseEventPos.y);
 
 }
 

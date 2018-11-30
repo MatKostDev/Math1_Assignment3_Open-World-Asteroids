@@ -3,8 +3,7 @@
 class Bullet : public GameObject
 {
 public:
-	Bullet(Vec2 position, float theta);
-	~Bullet();
+	Bullet(Vect2 position, float theta);
 
 	const float SPEED;
 
