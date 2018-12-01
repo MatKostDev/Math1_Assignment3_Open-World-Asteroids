@@ -4,6 +4,8 @@
 #include "EnemyBullet.h"
 #include "FriendlyBullet.h"
 #include "ShootingShip.h"
+#include "MovingShip.h"
+#include "Planet.h"
 
 using namespace cocos2d;
 
@@ -19,7 +21,7 @@ public:
 	void initMouseListener();
 	void initKeyboardListener();
 	void update(float dt);
-	void updateEnemyShips(float dt);
+	void updateEnemies(float dt);
 	void updateBullets(float dt);
 
 	//Callbacks
@@ -41,4 +43,6 @@ private:
 	Ship* ship;
 
 	ShootingShip* shootingShip;
+	MovingShip* movingShip;
+	Planet* planet;
 };

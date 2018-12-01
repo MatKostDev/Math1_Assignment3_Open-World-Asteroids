@@ -48,6 +48,12 @@
     <ClCompile Include="..\Classes\FriendlyBullet.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\BlackHole.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Planet.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -84,6 +90,12 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\FriendlyBullet.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BlackHole.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Planet.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

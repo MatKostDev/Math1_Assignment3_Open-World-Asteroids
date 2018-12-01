@@ -2,11 +2,11 @@
 
 std::vector<FriendlyBullet*> FriendlyBullet::friendlyBulletList = std::vector<FriendlyBullet*>();
 
-FriendlyBullet::FriendlyBullet(Vect2 position, float theta) : Bullet(position, theta, "Bullet.png")
+FriendlyBullet::FriendlyBullet(Vect2 position, float theta) : Bullet(position, theta, "FriendlyBullet.png")
 {
 	friendlyBulletList.push_back(this);
 	lifetime = 1;
-	moveSpeed = 900;
+	moveSpeed = 700;
 	moveBullet(moveSpeed);
 }
 

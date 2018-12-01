@@ -54,6 +54,13 @@ void Ship::rotateCounterClockwise(float dt)
 	sprite->runAction(RotateTo::create(0, theta)); //update the sprite's rotation
 }
 
+FriendlyBullet * Ship::shootBullet()
+{
+	FriendlyBullet* newFriendlyBullet = new FriendlyBullet(Vect2(sprite->getPosition()), theta);
+	FriendlyBullet::friendlyBulletList.push_back(newFriendlyBullet);
+	return newFriendlyBullet;
+}
+
 //updating physics properties
 void Ship::updatePhysics(float dt)
 {
@@ -84,4 +91,7 @@ void Ship::updatePhysics(float dt)
 		velocity.y = MAX_VELOCITY;
 	else if (velocity.y < MAX_VELOCITY * -1)
 		velocity.y = MAX_VELOCITY * -1;
+
+	//update rect of what's on screen
+	GameObject::screenRect->setRect(sprite->getPositionX(), sprite->getPositionY(), 1920, 1080);
 }
