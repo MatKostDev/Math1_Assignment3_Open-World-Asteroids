@@ -1,5 +1,7 @@
 #include "GameObject.h"
 
+Rect* GameObject::screenRect = new Rect();
+
 GameObject::GameObject(Vect2 position, std::string spriteFilePath)
 {
 	sprite = Sprite::create(spriteFilePath);

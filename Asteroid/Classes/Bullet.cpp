@@ -5,6 +5,11 @@ Bullet::Bullet(Vect2 position, float shipTheta, std::string spriteFilePath) : Ga
 	theta = shipTheta;
 }
 
+Bullet::~Bullet()
+{
+	sprite = NULL;
+}
+
 void Bullet::moveBullet(float speed)
 {
 	velocity = Vect2(

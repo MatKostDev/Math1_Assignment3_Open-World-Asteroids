@@ -37,7 +37,14 @@ void Gameplay::initSprites()
 	//shooting ship for testing
 	shootingShip = new ShootingShip(Vect2(4500, 4500));
 	this->addChild(shootingShip->sprite, 8);
-	ShootingShip::shootingShipList.push_back(shootingShip);
+
+	//moving ship for testing
+	movingShip = new MovingShip(Vect2(5500, 5500));
+	this->addChild(movingShip->sprite, 8);
+
+	//planet for testing
+	planet = new Planet(Vect2(4500, 5500));
+	this->addChild(planet->sprite, 8);
 }
 
 void Gameplay::initListeners()
@@ -88,24 +95,31 @@ void Gameplay::update(float dt)
 {
 	ship->updatePhysics(dt); //update our ship
 
-	updateEnemyShips(dt); //update enemy ships
+	updateEnemies(dt); //update enemy ships
 
 	updateBullets(dt); //update bullets
 }
 
-void Gameplay::updateEnemyShips(float dt)
+void Gameplay::updateEnemies(float dt)
 {
-	//update all bullets and check for expired bullets
+	//update all shooting ships
 	for (int i = 0; i < ShootingShip::shootingShipList.size(); i++)
 	{
 		ShootingShip::shootingShipList[i]->updatePhysics(dt, ship->getPosition());
 
-		if (ShootingShip::shootingShipList[i]->shootTimer > 1.5) //delay between shots (in seconds)
-		{
-			//shoot bullet and reset timer
-			this->addChild(ShootingShip::shootingShipList[i]->shootBullet()->sprite);
-			ShootingShip::shootingShipList[i]->shootTimer = 0;
-		}
+		if (ShootingShip::shootingShipList[i]->shootTimer > 1.2) //delay between shots (in seconds)
+			this->addChild(ShootingShip::shootingShipList[i]->shootBullet()->sprite); //shoot bullet and reset timer
+	}
+	//update all moving ships
+	for (int i = 0; i < MovingShip::movingShipList.size(); i++)
+		MovingShip::movingShipList[i]->updatePhysics(dt, ship->getPosition());
+
+	//update all planets
+	for (int i = 0; i < Planet::planetList.size(); i++)
+	{
+		Planet::planetList[i]->updatePhysics(dt, ship->getPosition());
+		if (Planet::planetList[i]->shootTimer > 2) //delay between shots (in seconds)
+			this->addChild(Planet::planetList[i]->shootBullet()->sprite); //shoot bullet and reset timer
 	}
 }
 
@@ -113,73 +127,20 @@ void Gameplay::updateBullets(float dt)
 {
 	//update all bullets
 	for (int i = 0; i < FriendlyBullet::friendlyBulletList.size(); i++)
-	{
 		FriendlyBullet::friendlyBulletList[i]->updatePhysics(dt);
-	}
+	
 	for (int i = 0; i < EnemyBullet::enemyBulletList.size(); i++)
-	{
 		EnemyBullet::enemyBulletList[i]->updatePhysics(dt);
-	}
 }
 
 //--- Callbacks ---//
 
 void Gameplay::mouseDownCallback(Event* event)
 {
-	////Cast the event as a mouse event
-	//EventMouse* mouseEvent = dynamic_cast<EventMouse*>(event);
-
-	////Get the position of the mouse button press
-	//auto mouseClickPosition = mouseEvent->getLocationInView();
-	//mouseClickPosition.y += 540;
-
-	////Get the mouse button from the event handler
-	//auto mouseButton = mouseEvent->getMouseButton();
-
-	////Perform different logic depending on which button was pressed
-	//if (mouseButton == cocos2d::EventMouse::MouseButton::BUTTON_LEFT)
-	//	std::cout << "Left Mouse Button Pressed!" << std::endl;
-	//else if (mouseButton == cocos2d::EventMouse::MouseButton::BUTTON_RIGHT)
-	//	std::cout << "Right Mouse Button Pressed!" << std::endl;
-
-	//if ((mouseClickPosition - slingshotPosition).length() < 50.0f)
-	//{
-	//	//Bird grabbed!
-	//	birdHeld = true;
-	//	std::cout << "Bird Grabbed!!!" << std::endl;
-	//}
-
-	//mouseDown = true;
 }
 
 void Gameplay::mouseUpCallback(Event* event)
 {
-	////Cast the event as a mouse event
-	//EventMouse* mouseEvent = dynamic_cast<EventMouse*>(event);
-
-	////Get the position of the mouse button press
-	//auto mouseUpPosition = mouseEvent->getLocation();
-
-	////Init the message to be output in the message box
-	//std::stringstream message;
-
-	////Get the mouse button from the event handler
-	//auto mouseButton = mouseEvent->getMouseButton();
-
-	////Perform different logic depending on which button was released
-	//if (mouseButton == cocos2d::EventMouse::MouseButton::BUTTON_LEFT)
-	//	std::cout << "Left Mouse Button Released!" << std::endl;
-	//else if (mouseButton == cocos2d::EventMouse::MouseButton::BUTTON_RIGHT)
-	//	std::cout << "Right Mouse Button Released!" << std::endl;
-	//mouseDown = false;
-	//if (birdHeld)
-	//{
-	//	activeBird->getSprite()->getPhysicsBody()->setDynamic(true);
-	//	activeBird->getSprite()->getPhysicsBody()->setVelocity((slingshotPosition - activeBird->getSprite()->getPosition()) * 5.0f);
-	//	activeBird->setState(birdState::airborne);
-	//	//sceneHandle->runAction(MoveTo::create(1.0f, Vec2(150, 0)));
-	//	birdHeld = false;
-	//}
 }
 
 void Gameplay::mouseMoveCallback(Event* event)
@@ -218,9 +179,7 @@ void Gameplay::keyDownCallback(EventKeyboard::KeyCode keyCode, Event* event)
 		ship->isRotatingClockwise = true;
 
 	if (keyCode == EventKeyboard::KeyCode::KEY_SPACE)
-	{
-		
-	}
+		this->addChild(ship->shootBullet()->sprite); //shoot bullet
 }
 
 void Gameplay::keyUpCallback(EventKeyboard::KeyCode keyCode, Event* event)

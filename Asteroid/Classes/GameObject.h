@@ -10,11 +10,12 @@ public:
 	GameObject(Vect2 position, std::string spriteFilePath);
 	virtual ~GameObject();
 
+	static Rect* screenRect;
+
 	float radius;
 	float theta;
 	Vect2 velocity;
 	Vect2 acceleration;
-
 	Sprite* sprite;
 
 	void setVelocity(float newX, float newY);

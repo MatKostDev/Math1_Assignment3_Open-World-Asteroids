@@ -27,5 +27,7 @@ public:
 	void rotateClockwise(float dt);
 	void rotateCounterClockwise(float dt);
 
+	FriendlyBullet* shootBullet();
+
 	void updatePhysics(float dt);
 };

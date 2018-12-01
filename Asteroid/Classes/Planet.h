@@ -2,13 +2,14 @@
 #include "GameObject.h"
 #include "EnemyBullet.h"
 
-class ShootingShip : public GameObject
+class Planet : public GameObject
 {
 public:
-	ShootingShip(Vect2 position);
+	Planet(Vect2 position);
 
+	float theta;
 	float shootTimer;
-	static std::vector<ShootingShip*> shootingShipList;
+	static std::vector<Planet*> planetList;
 
 	EnemyBullet* shootBullet();
 	void updatePhysics(float dt, Vect2 shipPosition);
