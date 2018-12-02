@@ -23,6 +23,7 @@ public:
 
 	Vect2 getPosition();
 	void destroySprite();
+	bool isCollidingWith(GameObject* otherObject);
 
 	void updatePhysics(float dt);
 };

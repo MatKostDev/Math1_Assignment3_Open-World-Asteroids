@@ -35,16 +35,20 @@ void Gameplay::initSprites()
 	runAction(Follow::create(ship->sprite));
 
 	//shooting ship for testing
-	shootingShip = new ShootingShip(Vect2(4500, 4500));
+	shootingShip = new ShootingShip(Vect2(2700, 2700));
 	this->addChild(shootingShip->sprite, 8);
 
 	//moving ship for testing
-	movingShip = new MovingShip(Vect2(5500, 5500));
+	movingShip = new MovingShip(Vect2(3000, 3000));
 	this->addChild(movingShip->sprite, 8);
 
 	//planet for testing
-	planet = new Planet(Vect2(4500, 5500));
+	planet = new Planet(Vect2(2000, 2000));
 	this->addChild(planet->sprite, 8);
+
+	//blackhole for testing
+	blackHole = new BlackHole(Vect2(3050, 2050));
+	this->addChild(blackHole->sprite, 8);
 }
 
 void Gameplay::initListeners()
@@ -121,6 +125,10 @@ void Gameplay::updateEnemies(float dt)
 		if (Planet::planetList[i]->shootTimer > 2) //delay between shots (in seconds)
 			this->addChild(Planet::planetList[i]->shootBullet()->sprite); //shoot bullet and reset timer
 	}
+
+	//update all blackholes
+	for (int i = 0; i < BlackHole::blackHoleList.size(); i++)
+		BlackHole::blackHoleList[i]->updatePhysics(dt, ship);
 }
 
 void Gameplay::updateBullets(float dt)
@@ -197,4 +205,20 @@ void Gameplay::keyUpCallback(EventKeyboard::KeyCode keyCode, Event* event)
 		ship->isRotatingCounterClockwise = false;
 	else if (keyCode == EventKeyboard::KeyCode::KEY_E)
 		ship->isRotatingClockwise = false;
+}
+
+//gets a random number
+int Gameplay::getRand(int maxNum, int scaleNum, bool canBeNegative)
+{
+	int randNum = (rand() % maxNum) + scaleNum;
+
+	//number can be a negative
+	if (canBeNegative)
+	{
+		//check randomly for either a 1 or 0 to determine if number should be negative or not
+		if (rand() % 2)
+			randNum *= -1;
+	}
+
+	return randNum;
 }
