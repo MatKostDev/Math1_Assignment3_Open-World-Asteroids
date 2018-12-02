@@ -54,6 +54,38 @@ Vect2 Vect2::operator/(const Vect2 a) const
 	return result;
 }
 
+bool operator>(const Vect2 vector, const float scalar)
+{
+	if (vector.x > scalar && vector.y > scalar)
+		return true;
+
+	return false;
+}
+
+bool operator<(const Vect2 vector, const float scalar)
+{
+	if (vector.x < scalar && vector.y < scalar)
+		return true;
+
+	return false;
+}
+
+bool operator>(const Vect2 lhs, const Vect2 rhs)
+{
+	if (lhs.x > rhs.x && lhs.y > rhs.y)
+		return true;
+
+	return false;
+}
+
+bool operator<(const Vect2 lhs, const Vect2 rhs)
+{
+	if (lhs.x < rhs.x && lhs.y < rhs.y)
+		return true;
+
+	return false;
+}
+
 Vect2 operator+(const float a, const Vect2 b)
 {
 	Vect2 temp;

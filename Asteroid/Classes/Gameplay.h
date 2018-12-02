@@ -6,6 +6,7 @@
 #include "ShootingShip.h"
 #include "MovingShip.h"
 #include "Planet.h"
+#include "BlackHole.h"
 
 using namespace cocos2d;
 
@@ -32,6 +33,8 @@ public:
 	void keyDownCallback(EventKeyboard::KeyCode keycode, Event* event);
 	void keyUpCallback(EventKeyboard::KeyCode keycode, Event* event);
 
+	int getRand(int maxNum, int scaleNum, bool canBeNegative);
+
 private:
 	Director* director;
 
@@ -42,7 +45,9 @@ private:
 	Sprite* background;
 	Ship* ship;
 
+	//sprites for testing
 	ShootingShip* shootingShip;
 	MovingShip* movingShip;
 	Planet* planet;
+	BlackHole* blackHole;
 };

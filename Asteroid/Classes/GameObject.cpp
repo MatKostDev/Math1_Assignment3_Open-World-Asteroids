@@ -41,9 +41,36 @@ void GameObject::destroySprite()
 	delete this;
 }
 
+bool GameObject::isCollidingWith(GameObject* otherObject)
+{
+	float dist;
+	float sumRadii;
+
+	//take squared values so we don't have to sqrt the distance
+	sumRadii = (radius + otherObject->radius) * (radius + otherObject->radius);
+
+	dist = (sprite->getPositionX() - otherObject->sprite->getPositionX()) * (sprite->getPositionX() - otherObject->sprite->getPositionX()) + 
+		   (sprite->getPositionY() - otherObject->sprite->getPositionY()) * (sprite->getPositionY() - otherObject->sprite->getPositionY());
+
+	if (dist < sumRadii)
+		return true;
+
+	return false;
+}
+
 //updates the object's physics properties
 void GameObject::updatePhysics(float dt)
 {
 	velocity += acceleration * dt; //update velocity
 	sprite->setPosition(sprite->getPosition() + Vec2(velocity.x, velocity.y) * dt); //update position
+
+	if (getPosition().y < 0)
+		sprite->setPositionY(5000);
+	else if (getPosition().y > 5000)
+		sprite->setPositionY(0);
+
+	if (getPosition().x < 0)
+		sprite->setPositionX(5000);
+	else if (getPosition().x > 5000)
+		sprite->setPositionX(0);
 }

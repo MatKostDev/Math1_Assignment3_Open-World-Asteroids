@@ -16,11 +16,6 @@ public:
 	Vect2 operator*(const Vect2 a) const;
 	Vect2 operator/(const Vect2 a) const;
 
-	friend Vect2 operator+(const float a, const Vect2 b);
-	friend Vect2 operator-(const float a, const Vect2 b);
-
-	Vect2 operator-() const;
-
 	Vect2 operator+=(const Vect2 a);
 	Vect2 operator-=(const Vect2 a);
 	Vect2 operator*=(const Vect2 a);
@@ -35,6 +30,17 @@ public:
 	Vect2 operator-=(const float scalar);
 	Vect2 operator*=(const float scalar);
 	Vect2 operator/=(const float scalar);
+
+	friend bool operator> (const Vect2 vector, const float scalar);
+	friend bool operator< (const Vect2 vector, const float scalar);
+
+	friend bool operator> (const Vect2 lhs, const Vect2 rhs);
+	friend bool operator< (const Vect2 lhs, const Vect2 rhs);
+
+	friend Vect2 operator+(const float a, const Vect2 b);
+	friend Vect2 operator-(const float a, const Vect2 b);
+
+	Vect2 operator-() const;
 
 	float getMagnitudeSquared();
 	float dotProduct(const Vect2 rhs);

@@ -1,7 +1,7 @@
 #include "Ship.h"
 
 //start ship in the middle of the screen
-Ship::Ship() : GameObject::GameObject(Vect2(5000, 5000), "Ship.png"), MOVESPEED(300), MAX_VELOCITY(300)
+Ship::Ship() : GameObject::GameObject(Vect2(2500, 2500), "Ship.png"), MOVESPEED(400), MAX_VELOCITY(300)
 {
 	isMovingForward = false;
 	isMovingBackward = false;
@@ -54,7 +54,7 @@ void Ship::rotateCounterClockwise(float dt)
 	sprite->runAction(RotateTo::create(0, theta)); //update the sprite's rotation
 }
 
-FriendlyBullet * Ship::shootBullet()
+FriendlyBullet* Ship::shootBullet()
 {
 	FriendlyBullet* newFriendlyBullet = new FriendlyBullet(Vect2(sprite->getPosition()), theta);
 	FriendlyBullet::friendlyBulletList.push_back(newFriendlyBullet);
@@ -93,5 +93,5 @@ void Ship::updatePhysics(float dt)
 		velocity.y = MAX_VELOCITY * -1;
 
 	//update rect of what's on screen
-	GameObject::screenRect->setRect(sprite->getPositionX(), sprite->getPositionY(), 1920, 1080);
+	GameObject::screenRect->setRect(sprite->getPositionX() - 1920/2, sprite->getPositionY() - 1080/2, 1920, 1080);
 }

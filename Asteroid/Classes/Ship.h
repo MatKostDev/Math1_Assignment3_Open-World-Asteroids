@@ -11,11 +11,12 @@ public:
 	const int MOVESPEED;
 	const int MAX_VELOCITY;
 
+
+
 	bool isMovingForward;
 	bool isMovingBackward;
 	bool isMovingLeft;
 	bool isMovingRight;
-
 	bool isRotatingClockwise;
 	bool isRotatingCounterClockwise;
 
@@ -23,7 +24,6 @@ public:
 	void moveBackward(float dt);
 	void moveLeft(float dt);
 	void moveRight(float dt);
-
 	void rotateClockwise(float dt);
 	void rotateCounterClockwise(float dt);
 
