@@ -5,7 +5,25 @@ std::vector<MovingShip*> MovingShip::movingShipList = std::vector<MovingShip*>()
 MovingShip::MovingShip(Vect2 position) : GameObject(position, "ShootingShip.png"), MOVESPEED(20000)
 {
 	theta = 0;
+	health = 3;
 	movingShipList.push_back(this);
+}
+
+void MovingShip::takeDamage()
+{
+	health--;
+
+	if (health <= 0)
+		removeShip();
+}
+
+void MovingShip::removeShip()
+{
+	destroySprite();
+
+	movingShipList.erase(
+		std::remove(movingShipList.begin(), movingShipList.end(), this),
+		movingShipList.end());
 }
 
 void MovingShip::updatePhysics(float dt, Vect2 shipPosition)

@@ -7,6 +7,7 @@
 #include "MovingShip.h"
 #include "Planet.h"
 #include "BlackHole.h"
+#include "LargeAsteroid.h"
 
 using namespace cocos2d;
 
@@ -24,6 +25,7 @@ public:
 	void update(float dt);
 	void updateEnemies(float dt);
 	void updateBullets(float dt);
+	void flickerShip();
 
 	//Callbacks
 	void mouseDownCallback(Event* event);
@@ -32,8 +34,6 @@ public:
 	void mouseScrollCallback(Event* event);
 	void keyDownCallback(EventKeyboard::KeyCode keycode, Event* event);
 	void keyUpCallback(EventKeyboard::KeyCode keycode, Event* event);
-
-	int getRand(int maxNum, int scaleNum, bool canBeNegative);
 
 private:
 	Director* director;
@@ -45,9 +45,10 @@ private:
 	Sprite* background;
 	Ship* ship;
 
-	//sprites for testing
+	//entities for testing
 	ShootingShip* shootingShip;
 	MovingShip* movingShip;
 	Planet* planet;
 	BlackHole* blackHole;
+	LargeAsteroid* largeAsteroid;
 };

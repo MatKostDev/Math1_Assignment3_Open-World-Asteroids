@@ -11,6 +11,7 @@ bool Gameplay::init()
 	if (!Scene::init())
 		return false;
 
+	srand(time(NULL)); //seed rng
 	director = Director::getInstance();
 
 	initListeners();
@@ -26,7 +27,7 @@ void Gameplay::initSprites()
 	//add background
 	background = Sprite::create("TestingBackground.png");
 	background->setAnchorPoint(Vec2(0.0f, 0.0f));
-	this->addChild(background, 0);
+	this->addChild(background, 1);
 
 	//add ship
 	ship = new Ship();
@@ -49,6 +50,15 @@ void Gameplay::initSprites()
 	//blackhole for testing
 	blackHole = new BlackHole(Vect2(3050, 2050));
 	this->addChild(blackHole->sprite, 8);
+
+	//large asteroid for testing
+	largeAsteroid = new LargeAsteroid(Vect2(0, 0), 
+		Vect2(myRand::getRandNum(120, 80, true), myRand::getRandNum(120, 80, true))); //velocity is random for x and y)
+	if (rand() % 2)
+		largeAsteroid->sprite->setPosition(0, rand() % 5000);
+	else
+		largeAsteroid->sprite->setPosition(rand() % 5000, 0);
+	this->addChild(largeAsteroid->sprite, 8);
 }
 
 void Gameplay::initListeners()
@@ -97,7 +107,9 @@ void Gameplay::initKeyboardListener()
 //UPDATE
 void Gameplay::update(float dt)
 {
-	ship->updatePhysics(dt); //update our ship
+	ship->updatePhysics(dt, this); //update our ship
+	if (ship->invincibilityTimer > 0)
+		flickerShip(); //flicker ship if it's invincible
 
 	updateEnemies(dt); //update enemy ships
 
@@ -112,7 +124,7 @@ void Gameplay::updateEnemies(float dt)
 		ShootingShip::shootingShipList[i]->updatePhysics(dt, ship->getPosition());
 
 		if (ShootingShip::shootingShipList[i]->shootTimer > 1.2) //delay between shots (in seconds)
-			this->addChild(ShootingShip::shootingShipList[i]->shootBullet()->sprite); //shoot bullet and reset timer
+			this->addChild(ShootingShip::shootingShipList[i]->shootBullet()->sprite, 5); //shoot bullet and reset timer
 	}
 	//update all moving ships
 	for (int i = 0; i < MovingShip::movingShipList.size(); i++)
@@ -123,12 +135,20 @@ void Gameplay::updateEnemies(float dt)
 	{
 		Planet::planetList[i]->updatePhysics(dt, ship->getPosition());
 		if (Planet::planetList[i]->shootTimer > 2) //delay between shots (in seconds)
-			this->addChild(Planet::planetList[i]->shootBullet()->sprite); //shoot bullet and reset timer
+			this->addChild(Planet::planetList[i]->shootBullet()->sprite, 5); //shoot bullet and reset timer
 	}
 
 	//update all blackholes
 	for (int i = 0; i < BlackHole::blackHoleList.size(); i++)
 		BlackHole::blackHoleList[i]->updatePhysics(dt, ship);
+
+	//update all small asteroids
+	for (int i = 0; i < SmallAsteroid::smallAsteroidList.size(); i++)
+		SmallAsteroid::smallAsteroidList[i]->updatePhysics(dt, ship);
+
+	//update all large asteroids
+	for (int i = 0; i < LargeAsteroid::largeAsteroidList.size(); i++)
+		LargeAsteroid::largeAsteroidList[i]->updatePhysics(dt, ship, this);
 }
 
 void Gameplay::updateBullets(float dt)
@@ -139,6 +159,15 @@ void Gameplay::updateBullets(float dt)
 	
 	for (int i = 0; i < EnemyBullet::enemyBulletList.size(); i++)
 		EnemyBullet::enemyBulletList[i]->updatePhysics(dt);
+}
+
+//flickers ship's sprite every 1/10th of a second if it's invincible
+void Gameplay::flickerShip()
+{
+	if (((int)(ship->invincibilityTimer * 10)) % 2 == 1)
+		ship->sprite->setZOrder(0); //flicker the ship (hide it behind background)
+	else
+		ship->sprite->setZOrder(10); //show the ship again
 }
 
 //--- Callbacks ---//
@@ -187,7 +216,7 @@ void Gameplay::keyDownCallback(EventKeyboard::KeyCode keyCode, Event* event)
 		ship->isRotatingClockwise = true;
 
 	if (keyCode == EventKeyboard::KeyCode::KEY_SPACE)
-		this->addChild(ship->shootBullet()->sprite); //shoot bullet
+		this->addChild(ship->shootBullet()->sprite, 5); //shoot bullet
 }
 
 void Gameplay::keyUpCallback(EventKeyboard::KeyCode keyCode, Event* event)
@@ -205,20 +234,4 @@ void Gameplay::keyUpCallback(EventKeyboard::KeyCode keyCode, Event* event)
 		ship->isRotatingCounterClockwise = false;
 	else if (keyCode == EventKeyboard::KeyCode::KEY_E)
 		ship->isRotatingClockwise = false;
-}
-
-//gets a random number
-int Gameplay::getRand(int maxNum, int scaleNum, bool canBeNegative)
-{
-	int randNum = (rand() % maxNum) + scaleNum;
-
-	//number can be a negative
-	if (canBeNegative)
-	{
-		//check randomly for either a 1 or 0 to determine if number should be negative or not
-		if (rand() % 2)
-			randNum *= -1;
-	}
-
-	return randNum;
 }
