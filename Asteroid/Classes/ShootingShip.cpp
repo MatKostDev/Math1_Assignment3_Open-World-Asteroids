@@ -6,8 +6,26 @@ ShootingShip::ShootingShip(Vect2 position) : GameObject(position, "ShootingShip.
 {
 	theta = 0;
 	shootTimer = 0;
+	health = 3;
 
 	shootingShipList.push_back(this);
+}
+
+void ShootingShip::takeDamage()
+{
+	health--;
+
+	if (health <= 0)
+		removeShip();
+}
+
+void ShootingShip::removeShip()
+{
+	destroySprite();
+
+	shootingShipList.erase(
+		std::remove(shootingShipList.begin(), shootingShipList.end(), this),
+		shootingShipList.end());
 }
 
 //shoots a bullet, adds it to the list of enemy bullets and returns it so it can be added to the scene

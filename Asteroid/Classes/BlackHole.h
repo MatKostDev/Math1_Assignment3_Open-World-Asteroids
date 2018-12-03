@@ -11,5 +11,7 @@ public:
 
 	static std::vector<BlackHole*> blackHoleList;
 
+	bool isCollidingWith(Ship* ship);
+	bool isCollidingWith(FriendlyBullet* bullet);
 	void updatePhysics(float dt, Ship* ship);
 };

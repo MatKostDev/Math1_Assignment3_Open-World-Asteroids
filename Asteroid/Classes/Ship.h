@@ -10,9 +10,13 @@ public:
 
 	const int MOVESPEED;
 	const int MAX_VELOCITY;
+	const int DRAG; //drag applied to the ship every frame if it's moving
 
+	int lives;
+	int shieldHealth;
+	float invincibilityTimer;
 
-
+	bool isDead;
 	bool isMovingForward;
 	bool isMovingBackward;
 	bool isMovingLeft;
@@ -28,6 +32,12 @@ public:
 	void rotateCounterClockwise(float dt);
 
 	FriendlyBullet* shootBullet();
+	
+	void takeDamage();
 
-	void updatePhysics(float dt);
+	bool isCollidingWith(ShootingShip* enemyShip);
+	bool isCollidingWith(MovingShip* enemyShip);
+	bool isCollidingWith(Planet* planet);
+	bool isCollidingWith(EnemyBullet* bullet);
+	void updatePhysics(float dt, Scene* myScene);
 };

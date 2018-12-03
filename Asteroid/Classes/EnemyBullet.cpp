@@ -5,9 +5,16 @@ std::vector<EnemyBullet*> EnemyBullet::enemyBulletList = std::vector<EnemyBullet
 EnemyBullet::EnemyBullet(Vect2 position, float theta) : Bullet(position, theta, "EnemyBullet.png")
 {
 	enemyBulletList.push_back(this);
-	lifetime = 2;
+	lifetime = 1.8;
 	moveSpeed = 400;
 	moveBullet(moveSpeed);
+}
+
+void EnemyBullet::removeBullet()
+{
+	//remove the bullet
+	destroySprite();
+	enemyBulletList.erase(std::remove(enemyBulletList.begin(), enemyBulletList.end(), this), enemyBulletList.end());
 }
 
 void EnemyBullet::updatePhysics(float dt)

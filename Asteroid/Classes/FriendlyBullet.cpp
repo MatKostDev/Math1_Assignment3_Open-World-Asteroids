@@ -5,9 +5,51 @@ std::vector<FriendlyBullet*> FriendlyBullet::friendlyBulletList = std::vector<Fr
 FriendlyBullet::FriendlyBullet(Vect2 position, float theta) : Bullet(position, theta, "FriendlyBullet.png")
 {
 	friendlyBulletList.push_back(this);
-	lifetime = 1;
+	lifetime = 0.85;
 	moveSpeed = 700;
 	moveBullet(moveSpeed);
+}
+
+void FriendlyBullet::removeBullet()
+{
+	//remove the bullet
+	destroySprite();
+	friendlyBulletList.erase(std::remove(friendlyBulletList.begin(), friendlyBulletList.end(), this), friendlyBulletList.end());
+}
+
+bool FriendlyBullet::isCollidingWith(ShootingShip* enemyShip)
+{
+	if (GameObject::isCollidingWith(enemyShip))
+	{
+		enemyShip->takeDamage();
+		removeBullet(); //remove the bullet
+		return true;
+	}
+
+	return false;
+}
+
+bool FriendlyBullet::isCollidingWith(MovingShip* enemyShip)
+{
+	if (GameObject::isCollidingWith(enemyShip))
+	{
+		enemyShip->takeDamage();
+		removeBullet(); //remove the bullet
+		return true;
+	}
+
+	return false;
+}
+
+bool FriendlyBullet::isCollidingWith(Planet* planet)
+{
+	if (GameObject::isCollidingWith(planet))
+	{
+		removeBullet();
+		return true;
+	}
+
+	return false;
 }
 
 void FriendlyBullet::updatePhysics(float dt)
@@ -15,10 +57,39 @@ void FriendlyBullet::updatePhysics(float dt)
 	//call base class update
 	Bullet::updatePhysics(dt);
 
-	//remove object if it's expired
-	if (lifetime < 0)
+	bool collision = false;
+	for (int i = 0; i < ShootingShip::shootingShipList.size(); i++)
 	{
-		destroySprite();
-		friendlyBulletList.erase(std::remove(friendlyBulletList.begin(), friendlyBulletList.end(), this), friendlyBulletList.end());
+		if (isCollidingWith(ShootingShip::shootingShipList[i]))
+		{
+			collision = true;
+			break;
+		}
 	}
+	if (!collision)
+	{
+		for (int i = 0; i < MovingShip::movingShipList.size(); i++)
+		{
+			if (isCollidingWith(MovingShip::movingShipList[i]))
+			{
+				collision = true;
+				break;
+			}
+		}
+	}
+	if (!collision)
+	{
+		for (int i = 0; i < Planet::planetList.size(); i++)
+		{
+			if (isCollidingWith(Planet::planetList[i]))
+			{
+				collision = true;
+				break;
+			}
+		}
+	}
+
+	//remove object if it's expired
+	if (lifetime < 0 && !collision)
+		removeBullet();
 }

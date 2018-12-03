@@ -1,6 +1,7 @@
 #pragma once
 #include "cocos2d.h"
 #include "Vect2.h"
+#include "myRand.h"
 
 using namespace cocos2d;
 

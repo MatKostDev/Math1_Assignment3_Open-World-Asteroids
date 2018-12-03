@@ -54,6 +54,15 @@
     <ClCompile Include="..\Classes\Planet.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\LargeAsteroid.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\SmallAsteroid.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\myRand.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -96,6 +105,15 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Planet.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\LargeAsteroid.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SmallAsteroid.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\myRand.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

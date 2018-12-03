@@ -41,6 +41,7 @@ void GameObject::destroySprite()
 	delete this;
 }
 
+//checks for collision on two circular objects
 bool GameObject::isCollidingWith(GameObject* otherObject)
 {
 	float dist;
@@ -64,13 +65,15 @@ void GameObject::updatePhysics(float dt)
 	velocity += acceleration * dt; //update velocity
 	sprite->setPosition(sprite->getPosition() + Vec2(velocity.x, velocity.y) * dt); //update position
 
-	if (getPosition().y < 0)
-		sprite->setPositionY(5000);
-	else if (getPosition().y > 5000)
-		sprite->setPositionY(0);
-
+	//check for out of bounds
+	//on x
 	if (getPosition().x < 0)
 		sprite->setPositionX(5000);
 	else if (getPosition().x > 5000)
 		sprite->setPositionX(0);
+	//on y
+	if (getPosition().y < 0)
+		sprite->setPositionY(5000);
+	else if (getPosition().y > 5000)
+		sprite->setPositionY(0);
 }
