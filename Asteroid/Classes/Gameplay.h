@@ -24,12 +24,14 @@ public:
 	static Scene* createScene();
 
 	virtual bool init();
+	void initUI();
 	void initSprites();
 	void initListeners();
 	void initMouseListener();
 	void initKeyboardListener();
 
 	void update(float dt);
+	void spawnEnemies();
 	void updateEnemies(float dt);
 	void updateBullets(float dt);
 	void updatePowerups(float dt);
@@ -54,12 +56,17 @@ private:
 	Sprite* background;
 	Ship* ship;
 
-	//entities for testing
+	//entities
 	ShootingShip* shootingShip;
 	MovingShip* movingShip;
 	Planet* planet;
 	BlackHole* blackHole;
+	SmallAsteroid* smallAsteroid;
 	LargeAsteroid* largeAsteroid;
+
+	//P_Grapple* pGrapple;
+	//P_LifeUp* pLifeUp;
+	//P_ShieldUp* pShieldUp;
 	P_ReverseControls* pReverseControls;
 	P_SpinEnemies* pSpinEnemies;
 	P_SpinShip* pSpinShip;

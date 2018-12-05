@@ -4,6 +4,7 @@ std::vector<P_ReverseControls*> P_ReverseControls::pReverseControlsList = std::v
 
 P_ReverseControls::P_ReverseControls(Vect2 startVelocity, Vect2 position) : Powerup(startVelocity, position, "ReverseControls.png")
 {
+	velocity = startVelocity;
 	pReverseControlsList.push_back(this);
 }
 

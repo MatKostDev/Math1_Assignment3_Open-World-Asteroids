@@ -22,6 +22,15 @@ bool Gameplay::init()
 	return true;
 }
 
+//initializes the user interface
+void Gameplay::initUI()
+{
+	Label* labelLives = Label::create("Lives: " + std::to_string(ship->lives), "fonts/arial.ttf", 50.0f, Size::ZERO, TextHAlignment::LEFT, TextVAlignment::BOTTOM);
+	labelLives->setAnchorPoint(Vec2(0.f, 0.f));
+	labelLives->setPosition(Vec2(2500, 2500));
+	this->addChild(labelLives, 15);
+}
+
 void Gameplay::initSprites()
 {
 	//add background
@@ -35,41 +44,17 @@ void Gameplay::initSprites()
 	//set camera to follow ship
 	runAction(Follow::create(ship->sprite));
 
-	//shooting ship for testing
-	shootingShip = new ShootingShip(Vect2(2700, 2700));
-	this->addChild(shootingShip->sprite, 8);
+	////powerups for testing
+	//pReverseControls = new P_ReverseControls(Vect2(0, 0), Vec2(2200, 2500));
+	//this->addChild(pReverseControls->sprite, 6);
+	//pReverseControls = new P_ReverseControls(Vect2(0, 0), Vec2(2100, 2500));
+	//this->addChild(pReverseControls->sprite, 6);
 
-	//moving ship for testing
-	movingShip = new MovingShip(Vect2(3000, 3000));
-	this->addChild(movingShip->sprite, 8);
+	//pSpinEnemies = new P_SpinEnemies(Vect2(0, 0), Vec2(2400, 2500));
+	//this->addChild(pSpinEnemies->sprite, 6);
 
-	//planet for testing
-	planet = new Planet(Vect2(2000, 2000));
-	this->addChild(planet->sprite, 8);
-
-	//blackhole for testing
-	blackHole = new BlackHole(Vect2(3050, 2050));
-	this->addChild(blackHole->sprite, 8);
-
-	//large asteroid for testing
-	largeAsteroid = new LargeAsteroid(Vect2(0, 0), Vect2(myRand::getRandNum(120, 80, true), myRand::getRandNum(120, 80, true))); //velocity is random for x and y)
-	if (rand() % 2)
-		largeAsteroid->sprite->setPosition(0, rand() % 5000);
-	else
-		largeAsteroid->sprite->setPosition(rand() % 5000, 0);
-	this->addChild(largeAsteroid->sprite, 8);
-
-	//powerups for testing
-	pReverseControls = new P_ReverseControls(Vect2(0, 0), Vec2(2200, 2500));
-	this->addChild(pReverseControls->sprite, 6);
-	pReverseControls = new P_ReverseControls(Vect2(0, 0), Vec2(2100, 2500));
-	this->addChild(pReverseControls->sprite, 6);
-
-	pSpinEnemies = new P_SpinEnemies(Vect2(0, 0), Vec2(2400, 2500));
-	this->addChild(pSpinEnemies->sprite, 6);
-
-	pSpinShip = new P_SpinShip(Vect2(0, 0), Vec2(2400, 2800));
-	this->addChild(pSpinShip->sprite, 6);
+	//pSpinShip = new P_SpinShip(Vect2(0, 0), Vec2(2400, 2800));
+	//this->addChild(pSpinShip->sprite, 6);
 
 }
 
@@ -123,9 +108,60 @@ void Gameplay::update(float dt)
 	if (ship->invincibilityTimer > 0)
 		flickerShip(); //flicker ship if it's invincible
 
-	updateEnemies(dt); //update enemy ships
-	updateBullets(dt); //update bullets
+	spawnEnemies();     //spawn enemies if needed 
+	updateEnemies(dt);  //update enemy ships
+	updateBullets(dt);  //update bullets
 	updatePowerups(dt); //update powerups
+}
+
+void Gameplay::spawnEnemies()
+{
+	//spawns all enemies to keep a certain amount of each in the map
+
+	//shooting ships
+	if (ShootingShip::shootingShipList.size() < 3)
+	{
+		shootingShip = new ShootingShip(Vect2(myRand::getRandNum(4600, 200), myRand::getRandNum(4600, 200)));
+		this->addChild(shootingShip->sprite, 8);
+	}
+	//moving ships
+	if (MovingShip::movingShipList.size() < 1)
+	{
+		movingShip = new MovingShip(Vect2(myRand::getRandNum(4600, 200), myRand::getRandNum(4600, 200)));
+		this->addChild(movingShip->sprite, 8);
+	}
+	//planets
+	if (Planet::planetList.size() < 2)
+	{
+		planet = new Planet(Vect2(myRand::getRandNum(4600, 200), myRand::getRandNum(4600, 200)));
+		this->addChild(planet->sprite, 8);
+	}
+	//blackholes
+	if (BlackHole::blackHoleList.size() < 2)
+	{
+		blackHole = new BlackHole(Vect2(myRand::getRandNum(4600, 200), myRand::getRandNum(4600, 200)));
+		this->addChild(blackHole->sprite, 8);
+	}
+	//small asteroids
+	if (SmallAsteroid::smallAsteroidList.size() < 3)
+	{
+		smallAsteroid = new SmallAsteroid(Vect2(0, 0), Vect2(myRand::getRandNum(150, 80, true), myRand::getRandNum(150, 80, true))); //velocity is random for x and y)
+		if (rand() % 2)
+			smallAsteroid->sprite->setPosition(0, rand() % 5000);
+		else
+			smallAsteroid->sprite->setPosition(rand() % 5000, 0);
+		this->addChild(smallAsteroid->sprite, 8);
+	}
+	//large asteroids
+	if (LargeAsteroid::largeAsteroidList.size() < 2)
+	{
+		largeAsteroid = new LargeAsteroid(Vect2(0, 0), Vect2(myRand::getRandNum(120, 80, true), myRand::getRandNum(120, 80, true))); //velocity is random for x and y)
+		if (rand() % 2)
+			largeAsteroid->sprite->setPosition(0, rand() % 5000);
+		else
+			largeAsteroid->sprite->setPosition(rand() % 5000, 0);
+		this->addChild(largeAsteroid->sprite, 8);
+	}
 }
 
 void Gameplay::updateEnemies(float dt)

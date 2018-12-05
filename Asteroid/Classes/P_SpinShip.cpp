@@ -4,6 +4,7 @@ std::vector<P_SpinShip*> P_SpinShip::pSpinShipList = std::vector<P_SpinShip*>();
 
 P_SpinShip::P_SpinShip(Vect2 startVelocity, Vect2 position) : Powerup(startVelocity, position, "SpinShip.png")
 {
+	velocity = startVelocity;
 	pSpinShipList.push_back(this);
 }
 

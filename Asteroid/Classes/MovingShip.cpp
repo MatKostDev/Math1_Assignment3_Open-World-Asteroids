@@ -2,7 +2,7 @@
 
 std::vector<MovingShip*> MovingShip::movingShipList = std::vector<MovingShip*>();
 
-MovingShip::MovingShip(Vect2 position) : GameObject(position, "ShootingShip.png"), MOVESPEED(20000)
+MovingShip::MovingShip(Vect2 position) : GameObject(position, "ShootingShip.png"), MOVESPEED(17000)
 {
 	theta = 0;
 	health = 3;

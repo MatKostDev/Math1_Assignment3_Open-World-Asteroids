@@ -4,6 +4,7 @@ std::vector<P_SpinEnemies*> P_SpinEnemies::pSpinEnemiesList = std::vector<P_Spin
 
 P_SpinEnemies::P_SpinEnemies(Vect2 startVelocity, Vect2 position) : Powerup(startVelocity, position, "SpinEnemies.png")
 {
+	velocity = startVelocity;
 	pSpinEnemiesList.push_back(this);
 }
 

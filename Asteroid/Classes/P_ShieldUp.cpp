@@ -4,6 +4,7 @@ std::vector<P_ShieldUp*> P_ShieldUp::pShieldUpList = std::vector<P_ShieldUp*>();
 
 P_ShieldUp::P_ShieldUp(Vect2 startVelocity, Vect2 position) : Powerup(startVelocity, position, "ShieldUp.png")
 {
+	velocity = startVelocity;
 	pShieldUpList.push_back(this);
 }
 

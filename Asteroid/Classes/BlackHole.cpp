@@ -2,7 +2,7 @@
 
 std::vector<BlackHole*> BlackHole::blackHoleList = std::vector<BlackHole*>();
 
-BlackHole::BlackHole(Vect2 position) : GameObject(position, "BlackHole.png"), PULL_SPEED(600), RANGE(500)
+BlackHole::BlackHole(Vect2 position) : GameObject(position, "BlackHole.png"), PULL_SPEED(600), RANGE(400)
 {
 	blackHoleList.push_back(this);
 }

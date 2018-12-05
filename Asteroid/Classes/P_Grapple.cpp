@@ -4,6 +4,7 @@ std::vector<P_Grapple*> P_Grapple::pGrappleList = std::vector<P_Grapple*>();
 
 P_Grapple::P_Grapple(Vect2 startVelocity, Vect2 position) : Powerup(startVelocity, position, "Grapple.png")
 {
+	velocity = startVelocity;
 	pGrappleList.push_back(this);
 }
 

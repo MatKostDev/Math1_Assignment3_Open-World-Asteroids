@@ -151,8 +151,10 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
     <ClCompile Include="..\Classes\BlackHole.cpp" />
+    <ClCompile Include="..\Classes\Boss.cpp" />
     <ClCompile Include="..\Classes\Bullet.cpp" />
     <ClCompile Include="..\Classes\EnemyBullet.cpp" />
+    <ClCompile Include="..\Classes\EnergyCube.cpp" />
     <ClCompile Include="..\Classes\FriendlyBullet.cpp" />
     <ClCompile Include="..\Classes\GameObject.cpp" />
     <ClCompile Include="..\Classes\Gameplay.cpp" />
@@ -177,8 +179,10 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h" />
     <ClInclude Include="..\Classes\BlackHole.h" />
+    <ClInclude Include="..\Classes\Boss.h" />
     <ClInclude Include="..\Classes\Bullet.h" />
     <ClInclude Include="..\Classes\EnemyBullet.h" />
+    <ClInclude Include="..\Classes\EnergyCube.h" />
     <ClInclude Include="..\Classes\FriendlyBullet.h" />
     <ClInclude Include="..\Classes\GameObject.h" />
     <ClInclude Include="..\Classes\Gameplay.h" />

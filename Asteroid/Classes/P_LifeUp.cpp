@@ -4,6 +4,7 @@ std::vector<P_LifeUp*> P_LifeUp::pLifeUpList = std::vector<P_LifeUp*>();
 
 P_LifeUp::P_LifeUp(Vect2 startVelocity, Vect2 position) : Powerup(startVelocity, position, "LifeUp.png")
 {
+	velocity = startVelocity;
 	pLifeUpList.push_back(this);
 }
 

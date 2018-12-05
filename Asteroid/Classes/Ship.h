@@ -14,6 +14,7 @@ public:
 
 	int lives;
 	int shieldHealth;
+	int numEnergyCubes;
 	float invincibilityTimer;
 	float spinTimer;
 

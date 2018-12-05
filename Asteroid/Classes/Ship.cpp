@@ -16,6 +16,7 @@ Ship::Ship() : GameObject::GameObject(Vect2(2500, 2500), "Ship.png"), MOVESPEED(
 	lives = 3;
 	shieldHealth = 4;
 	invincibilityTimer = 0;
+	numEnergyCubes = 0;
 }
 
 //--MOVEMENT FUNCTIONS--
