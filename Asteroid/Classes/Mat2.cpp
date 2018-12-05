@@ -4,7 +4,7 @@ Mat2::Mat2()
 {
 	data[0][0] = 1;
 	data[0][1] = 0;
-	
+
 	data[1][0] = 0;
 	data[1][1] = 1;
 }
@@ -13,7 +13,7 @@ Mat2::Mat2(const float a)
 {
 	data[0][0] = a;
 	data[0][1] = a;
-	
+
 	data[1][0] = a;
 	data[1][1] = a;
 }
@@ -104,7 +104,7 @@ Mat2 Mat2::operator*=(const float scalar)
 Mat2 Mat2::Transpose() const
 {
 	Mat2 temp;
-	
+
 	temp[0][0] = data[0][0];
 	temp[0][1] = data[1][1];
 	temp[1][0] = data[1][0];
