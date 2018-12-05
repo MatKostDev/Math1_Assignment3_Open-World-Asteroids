@@ -52,13 +52,25 @@ void Gameplay::initSprites()
 	this->addChild(blackHole->sprite, 8);
 
 	//large asteroid for testing
-	largeAsteroid = new LargeAsteroid(Vect2(0, 0), 
-		Vect2(myRand::getRandNum(120, 80, true), myRand::getRandNum(120, 80, true))); //velocity is random for x and y)
+	largeAsteroid = new LargeAsteroid(Vect2(0, 0), Vect2(myRand::getRandNum(120, 80, true), myRand::getRandNum(120, 80, true))); //velocity is random for x and y)
 	if (rand() % 2)
 		largeAsteroid->sprite->setPosition(0, rand() % 5000);
 	else
 		largeAsteroid->sprite->setPosition(rand() % 5000, 0);
 	this->addChild(largeAsteroid->sprite, 8);
+
+	//powerups for testing
+	pReverseControls = new P_ReverseControls(Vect2(0, 0), Vec2(2200, 2500));
+	this->addChild(pReverseControls->sprite, 6);
+	pReverseControls = new P_ReverseControls(Vect2(0, 0), Vec2(2100, 2500));
+	this->addChild(pReverseControls->sprite, 6);
+
+	pSpinEnemies = new P_SpinEnemies(Vect2(0, 0), Vec2(2400, 2500));
+	this->addChild(pSpinEnemies->sprite, 6);
+
+	pSpinShip = new P_SpinShip(Vect2(0, 0), Vec2(2400, 2800));
+	this->addChild(pSpinShip->sprite, 6);
+
 }
 
 void Gameplay::initListeners()
@@ -112,8 +124,8 @@ void Gameplay::update(float dt)
 		flickerShip(); //flicker ship if it's invincible
 
 	updateEnemies(dt); //update enemy ships
-
 	updateBullets(dt); //update bullets
+	updatePowerups(dt); //update powerups
 }
 
 void Gameplay::updateEnemies(float dt)
@@ -161,6 +173,28 @@ void Gameplay::updateBullets(float dt)
 		EnemyBullet::enemyBulletList[i]->updatePhysics(dt);
 }
 
+void Gameplay::updatePowerups(float dt)
+{
+	//update all powerups
+	for (int i = 0; i < P_Grapple::pGrappleList.size(); i++)
+		P_Grapple::pGrappleList[i]->updatePhysics(dt, ship);
+
+	for (int i = 0; i < P_LifeUp::pLifeUpList.size(); i++)
+		P_LifeUp::pLifeUpList[i]->updatePhysics(dt, ship);
+
+	for (int i = 0; i < P_ReverseControls::pReverseControlsList.size(); i++)
+		P_ReverseControls::pReverseControlsList[i]->updatePhysics(dt, ship);
+
+	for (int i = 0; i < P_ShieldUp::pShieldUpList.size(); i++)
+		P_ShieldUp::pShieldUpList[i]->updatePhysics(dt, ship);
+
+	for (int i = 0; i < P_SpinEnemies::pSpinEnemiesList.size(); i++)
+		P_SpinEnemies::pSpinEnemiesList[i]->updatePhysics(dt, ship);
+
+	for (int i = 0; i < P_SpinShip::pSpinShipList.size(); i++)
+		P_SpinShip::pSpinShipList[i]->updatePhysics(dt, ship);
+}
+
 //flickers ship's sprite every 1/10th of a second if it's invincible
 void Gameplay::flickerShip()
 {
@@ -201,37 +235,81 @@ void Gameplay::mouseScrollCallback(Event* event)
 void Gameplay::keyDownCallback(EventKeyboard::KeyCode keyCode, Event* event)
 {
 	//WASD controls
-	if (keyCode == EventKeyboard::KeyCode::KEY_W)
-		ship->isMovingForward = true;
-	else if (keyCode == EventKeyboard::KeyCode::KEY_S)
-		ship->isMovingBackward = true;
-	if (keyCode == EventKeyboard::KeyCode::KEY_A)
-		ship->isMovingLeft = true;
-	else if (keyCode == EventKeyboard::KeyCode::KEY_D)
-		ship->isMovingRight = true;
 
-	if (keyCode == EventKeyboard::KeyCode::KEY_Q)
-		ship->isRotatingCounterClockwise = true;
-	else if (keyCode == EventKeyboard::KeyCode::KEY_E)
-		ship->isRotatingClockwise = true;
+	if (!ship->reverseControls)
+	{
+		if (keyCode == EventKeyboard::KeyCode::KEY_W)
+			ship->isMovingForward = true;
+		else if (keyCode == EventKeyboard::KeyCode::KEY_S)
+			ship->isMovingBackward = true;
+		if (keyCode == EventKeyboard::KeyCode::KEY_A)
+			ship->isMovingLeft = true;
+		else if (keyCode == EventKeyboard::KeyCode::KEY_D)
+			ship->isMovingRight = true;
+
+		if (keyCode == EventKeyboard::KeyCode::KEY_Q)
+			ship->isRotatingCounterClockwise = true;
+		else if (keyCode == EventKeyboard::KeyCode::KEY_E)
+			ship->isRotatingClockwise = true;
+	}
+	else //reverse controls
+	{
+		if (keyCode == EventKeyboard::KeyCode::KEY_W)
+			ship->isMovingBackward = true;
+		else if (keyCode == EventKeyboard::KeyCode::KEY_S)
+			ship->isMovingForward = true;
+		if (keyCode == EventKeyboard::KeyCode::KEY_A)
+			ship->isMovingRight = true;
+		else if (keyCode == EventKeyboard::KeyCode::KEY_D)
+			ship->isMovingLeft = true;
+
+		if (keyCode == EventKeyboard::KeyCode::KEY_Q)
+			ship->isRotatingClockwise = true;
+		else if (keyCode == EventKeyboard::KeyCode::KEY_E)
+			ship->isRotatingCounterClockwise = true;
+	}
 
 	if (keyCode == EventKeyboard::KeyCode::KEY_SPACE)
 		this->addChild(ship->shootBullet()->sprite, 5); //shoot bullet
+
+	if (keyCode == EventKeyboard::KeyCode::KEY_ESCAPE)
+	{
+
+	}
 }
 
 void Gameplay::keyUpCallback(EventKeyboard::KeyCode keyCode, Event* event)
 {
-	if (keyCode == EventKeyboard::KeyCode::KEY_W)
-		ship->isMovingForward = false;
-	if (keyCode == EventKeyboard::KeyCode::KEY_S)
-		ship->isMovingBackward = false;
-	if (keyCode == EventKeyboard::KeyCode::KEY_A)
-		ship->isMovingLeft = false;
-	if (keyCode == EventKeyboard::KeyCode::KEY_D)
-		ship->isMovingRight = false;
+	if (!ship->reverseControls)
+	{
+		if (keyCode == EventKeyboard::KeyCode::KEY_W)
+			ship->isMovingForward = false;
+		if (keyCode == EventKeyboard::KeyCode::KEY_S)
+			ship->isMovingBackward = false;
+		if (keyCode == EventKeyboard::KeyCode::KEY_A)
+			ship->isMovingLeft = false;
+		if (keyCode == EventKeyboard::KeyCode::KEY_D)
+			ship->isMovingRight = false;
 
-	if (keyCode == EventKeyboard::KeyCode::KEY_Q)
-		ship->isRotatingCounterClockwise = false;
-	else if (keyCode == EventKeyboard::KeyCode::KEY_E)
-		ship->isRotatingClockwise = false;
+		if (keyCode == EventKeyboard::KeyCode::KEY_Q)
+			ship->isRotatingCounterClockwise = false;
+		if (keyCode == EventKeyboard::KeyCode::KEY_E)
+			ship->isRotatingClockwise = false;
+	}
+	else //reverse controls
+	{
+		if (keyCode == EventKeyboard::KeyCode::KEY_W)
+			ship->isMovingBackward = false;
+		if (keyCode == EventKeyboard::KeyCode::KEY_S)
+			ship->isMovingForward = false;
+		if (keyCode == EventKeyboard::KeyCode::KEY_A)
+			ship->isMovingRight = false;
+		if (keyCode == EventKeyboard::KeyCode::KEY_D)
+			ship->isMovingLeft = false;
+
+		if (keyCode == EventKeyboard::KeyCode::KEY_Q)
+			ship->isRotatingClockwise = false;
+		if (keyCode == EventKeyboard::KeyCode::KEY_E)
+			ship->isRotatingCounterClockwise = false;
+	}
 }

@@ -11,6 +11,7 @@ public:
 	static std::vector<MovingShip*> movingShipList;
 
 	int health;
+	float spinTimer;
 
 	void takeDamage();
 	void removeShip();

@@ -9,6 +9,7 @@ public:
 
 	int health;
 	float shootTimer;
+	float spinTimer;
 	static std::vector<ShootingShip*> shootingShipList;
 
 	void takeDamage();

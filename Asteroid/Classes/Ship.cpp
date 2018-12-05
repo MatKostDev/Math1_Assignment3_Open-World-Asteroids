@@ -11,6 +11,7 @@ Ship::Ship() : GameObject::GameObject(Vect2(2500, 2500), "Ship.png"), MOVESPEED(
 	isRotatingClockwise = false;
 	isRotatingCounterClockwise = false;
 
+	reverseControls = false;
 	isDead = false;
 	lives = 3;
 	shieldHealth = 4;
@@ -165,31 +166,40 @@ void Ship::updatePhysics(float dt, Scene* myScene)
 			break;
 	}
 
-	//check for movement
-	if (isMovingForward)
-		moveForward(dt);
-	else if (isMovingBackward)
-		moveBackward(dt);
-	if (isMovingLeft)
-		moveLeft(dt);
-	else if (isMovingRight)
-		moveRight(dt);
+	if (spinTimer <= 0)
+	{
+		//check for movement
+		if (isMovingForward)
+			moveForward(dt);
+		else if (isMovingBackward)
+			moveBackward(dt);
+		if (isMovingLeft)
+			moveLeft(dt);
+		else if (isMovingRight)
+			moveRight(dt);
 
-	//check for rotations
-	if (isRotatingClockwise)
-		rotateClockwise(dt);
-	else if (isRotatingCounterClockwise)
-		rotateCounterClockwise(dt);
+		//check for rotations
+		if (isRotatingClockwise)
+			rotateClockwise(dt);
+		else if (isRotatingCounterClockwise)
+			rotateCounterClockwise(dt);
 
-	//apply drag
-	if (velocity.x > 0)
-		velocity.x -= DRAG;
-	else if (velocity.x < 0)
-		velocity.x += DRAG;
-	if (velocity.y > 0)
-		velocity.y -= DRAG;
-	else if (velocity.y < 0)
-		velocity.y += DRAG;
+		//apply drag
+		if (velocity.x > 0)
+			velocity.x -= DRAG;
+		else if (velocity.x < 0)
+			velocity.x += DRAG;
+		if (velocity.y > 0)
+			velocity.y -= DRAG;
+		else if (velocity.y < 0)
+			velocity.y += DRAG;
+	}
+	else //spin
+	{
+		theta += 250 * dt;
+		sprite->runAction(RotateTo::create(0, theta)); //update the sprite's rotation
+		spinTimer -= dt;
+	}
 
 	//check for max/min velocities
 	if (velocity.x > MAX_VELOCITY)

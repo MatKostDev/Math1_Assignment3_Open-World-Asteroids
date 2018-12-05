@@ -15,7 +15,9 @@ public:
 	int lives;
 	int shieldHealth;
 	float invincibilityTimer;
+	float spinTimer;
 
+	bool reverseControls;
 	bool isDead;
 	bool isMovingForward;
 	bool isMovingBackward;

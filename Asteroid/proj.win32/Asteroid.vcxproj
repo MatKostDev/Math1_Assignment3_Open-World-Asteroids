@@ -162,6 +162,12 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\myRand.cpp" />
     <ClCompile Include="..\Classes\Planet.cpp" />
     <ClCompile Include="..\Classes\Powerup.cpp" />
+    <ClCompile Include="..\Classes\P_Grapple.cpp" />
+    <ClCompile Include="..\Classes\P_LifeUp.cpp" />
+    <ClCompile Include="..\Classes\P_ReverseControls.cpp" />
+    <ClCompile Include="..\Classes\P_ShieldUp.cpp" />
+    <ClCompile Include="..\Classes\P_SpinEnemies.cpp" />
+    <ClCompile Include="..\Classes\P_SpinShip.cpp" />
     <ClCompile Include="..\Classes\Ship.cpp" />
     <ClCompile Include="..\Classes\ShootingShip.cpp" />
     <ClCompile Include="..\Classes\SmallAsteroid.cpp" />
@@ -182,6 +188,12 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\myRand.h" />
     <ClInclude Include="..\Classes\Planet.h" />
     <ClInclude Include="..\Classes\Powerup.h" />
+    <ClInclude Include="..\Classes\P_Grapple.h" />
+    <ClInclude Include="..\Classes\P_LifeUp.h" />
+    <ClInclude Include="..\Classes\P_ReverseControls.h" />
+    <ClInclude Include="..\Classes\P_ShieldUp.h" />
+    <ClInclude Include="..\Classes\P_SpinEnemies.h" />
+    <ClInclude Include="..\Classes\P_SpinShip.h" />
     <ClInclude Include="..\Classes\Ship.h" />
     <ClInclude Include="..\Classes\ShootingShip.h" />
     <ClInclude Include="..\Classes\SmallAsteroid.h" />
