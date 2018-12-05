@@ -54,11 +54,13 @@ Mat2 Mat2::operator*(const Mat2 a) const
 Mat2 Mat2::operator+=(const Mat2 a)
 {
 	*this = *this + a;
+	return *this;
 }
 
 Mat2 Mat2::operator*=(const Mat2 a)
 {
 	*this = *this * a;
+	return *this;
 }
 
 Mat2 Mat2::operator*(const float scalar) const
@@ -91,6 +93,8 @@ Mat2 Mat2::operator+=(const float scalar)
 	data[0][1] = data[0][1];
 	data[1][0] = data[1][0];
 	data[1][1] = data[1][1] + scalar;
+
+	return *this;
 }
 
 Mat2 Mat2::operator*=(const float scalar)
@@ -99,6 +103,8 @@ Mat2 Mat2::operator*=(const float scalar)
 	data[0][1] = data[0][1];
 	data[1][0] = data[1][0];
 	data[1][1] = data[1][1] * scalar;
+
+	return *this;
 }
 
 Mat2 Mat2::Transpose() const
