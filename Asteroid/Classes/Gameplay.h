@@ -7,6 +7,12 @@
 #include "MovingShip.h"
 #include "Planet.h"
 #include "BlackHole.h"
+#include "P_Grapple.h"
+#include "P_LifeUp.h"
+#include "P_ReverseControls.h"
+#include "P_ShieldUp.h"
+#include "P_SpinEnemies.h"
+#include "P_SpinShip.h"
 #include "LargeAsteroid.h"
 
 using namespace cocos2d;
@@ -22,9 +28,12 @@ public:
 	void initListeners();
 	void initMouseListener();
 	void initKeyboardListener();
+
 	void update(float dt);
 	void updateEnemies(float dt);
 	void updateBullets(float dt);
+	void updatePowerups(float dt);
+
 	void flickerShip();
 
 	//Callbacks
@@ -51,4 +60,7 @@ private:
 	Planet* planet;
 	BlackHole* blackHole;
 	LargeAsteroid* largeAsteroid;
+	P_ReverseControls* pReverseControls;
+	P_SpinEnemies* pSpinEnemies;
+	P_SpinShip* pSpinShip;
 };
