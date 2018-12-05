@@ -8,6 +8,7 @@ public:
 	static std::vector<P_ReverseControls*> pReverseControlsList;
 
 	void performPowerup(Ship* ship);
+	void removeObject();
 	void updatePhysics(float dt, Ship* ship);
 };
 

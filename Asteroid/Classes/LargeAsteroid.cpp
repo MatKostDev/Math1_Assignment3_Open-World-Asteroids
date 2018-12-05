@@ -45,17 +45,20 @@ void LargeAsteroid::updatePhysics(float dt, Ship* ship, Scene* myScene)
 	}
 }
 
-void LargeAsteroid::removeAsteroid(Scene* myScene)
+void LargeAsteroid::removeAsteroid(Scene* myScene, bool spawnSmallAsteroids)
 {
-	//spawn a random number of small asteroids
-	int numAsteroids = myRand::getRandNum(3, 1);
-	for (int k = 0; k <= numAsteroids; k++)
+	if (spawnSmallAsteroids)
 	{
-		SmallAsteroid* newSmallAsteroid = new SmallAsteroid
+		//spawn a random number of small asteroids
+		int numAsteroids = myRand::getRandNum(3, 1);
+		for (int k = 0; k <= numAsteroids; k++)
+		{
+			SmallAsteroid* newSmallAsteroid = new SmallAsteroid
 			(Vect2(this->getPosition()),  //position is the same as parent asteroid
-			Vect2(myRand::getRandNum(150, 100, true), myRand::getRandNum(150, 100, true))); //velocity is random for x and y
+				Vect2(myRand::getRandNum(150, 100, true), myRand::getRandNum(150, 100, true))); //velocity is random for x and y
 
-		myScene->addChild(newSmallAsteroid->sprite, 8);
+			myScene->addChild(newSmallAsteroid->sprite, 8);
+		}
 	}
 
 	//remove the asteroid

@@ -12,6 +12,13 @@ void P_Grapple::performPowerup(Ship * ship)
 {
 }
 
+void P_Grapple::removeObject()
+{
+	//remove the object
+	destroySprite();
+	pGrappleList.erase(std::remove(pGrappleList.begin(), pGrappleList.end(), this), pGrappleList.end());
+}
+
 void P_Grapple::updatePhysics(float dt, Ship * ship)
 {
 	Powerup::updatePhysics(dt);

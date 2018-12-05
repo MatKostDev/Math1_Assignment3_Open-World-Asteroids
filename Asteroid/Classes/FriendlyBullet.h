@@ -3,6 +3,7 @@
 #include "ShootingShip.h"
 #include "MovingShip.h"
 #include "Planet.h"
+#include "Boss.h"
 
 class FriendlyBullet : public Bullet
 {
@@ -14,5 +15,6 @@ public:
 	bool isCollidingWith(ShootingShip* enemyShip);
 	bool isCollidingWith(MovingShip* enemyShip);
 	bool isCollidingWith(Planet* planet);
-	void updatePhysics(float dt);
+	bool isCollidingWith(Boss* boss);
+	void updatePhysics(float dt, Boss* boss);
 };

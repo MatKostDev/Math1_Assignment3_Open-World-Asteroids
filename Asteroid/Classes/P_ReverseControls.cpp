@@ -20,6 +20,13 @@ void P_ReverseControls::performPowerup(Ship * ship)
 	ship->isRotatingCounterClockwise = false;
 }
 
+void P_ReverseControls::removeObject()
+{
+	//remove the object
+	destroySprite();
+	pReverseControlsList.erase(std::remove(pReverseControlsList.begin(), pReverseControlsList.end(), this), pReverseControlsList.end());
+}
+
 void P_ReverseControls::updatePhysics(float dt, Ship* ship)
 {
 	Powerup::updatePhysics(dt);

@@ -31,3 +31,10 @@ void P_SpinEnemies::performPowerup(Ship* ship)
 	for (int i = 0; i < MovingShip::movingShipList.size(); i++)
 		MovingShip::movingShipList[i]->spinTimer = 5;
 }
+
+void P_SpinEnemies::removeObject()
+{
+	//remove the object
+	destroySprite();
+	pSpinEnemiesList.erase(std::remove(pSpinEnemiesList.begin(), pSpinEnemiesList.end(), this), pSpinEnemiesList.end());
+}

@@ -19,6 +19,13 @@ EnemyBullet* Planet::shootBullet()
 	return newEnemyBullet;
 }
 
+void Planet::removeObject()
+{
+	//remove the object
+	destroySprite();
+	planetList.erase(std::remove(planetList.begin(), planetList.end(), this), planetList.end());
+}
+
 void Planet::updatePhysics(float dt, Vect2 shipPosition)
 {
 	//check if the ship is on the player's screen

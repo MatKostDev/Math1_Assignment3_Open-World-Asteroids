@@ -7,7 +7,7 @@ ShootingShip::ShootingShip(Vect2 position) : GameObject(position, "ShootingShip.
 	theta = 0;
 	shootTimer = 0;
 	spinTimer = 0;
-	health = 3;
+	health = 2;
 
 	shootingShipList.push_back(this);
 }

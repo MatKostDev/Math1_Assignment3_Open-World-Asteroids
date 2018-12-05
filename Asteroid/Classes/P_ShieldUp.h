@@ -9,5 +9,6 @@ public:
 	static std::vector<P_ShieldUp*> pShieldUpList;
 
 	void performPowerup(Ship* ship);
+	void removeObject();
 	void updatePhysics(float dt, Ship* ship);
 };

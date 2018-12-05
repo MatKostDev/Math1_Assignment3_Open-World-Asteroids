@@ -8,5 +8,6 @@ public:
 	static std::vector<P_SpinShip*> pSpinShipList;
 
 	void performPowerup(Ship* ship);
+	void removeObject();
 	void updatePhysics(float dt, Ship* ship);
 };

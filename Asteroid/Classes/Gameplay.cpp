@@ -43,19 +43,6 @@ void Gameplay::initSprites()
 	this->addChild(ship->sprite, 10);
 	//set camera to follow ship
 	runAction(Follow::create(ship->sprite));
-
-	////powerups for testing
-	//pReverseControls = new P_ReverseControls(Vect2(0, 0), Vec2(2200, 2500));
-	//this->addChild(pReverseControls->sprite, 6);
-	//pReverseControls = new P_ReverseControls(Vect2(0, 0), Vec2(2100, 2500));
-	//this->addChild(pReverseControls->sprite, 6);
-
-	//pSpinEnemies = new P_SpinEnemies(Vect2(0, 0), Vec2(2400, 2500));
-	//this->addChild(pSpinEnemies->sprite, 6);
-
-	//pSpinShip = new P_SpinShip(Vect2(0, 0), Vec2(2400, 2800));
-	//this->addChild(pSpinShip->sprite, 6);
-
 }
 
 void Gameplay::initListeners()
@@ -108,7 +95,7 @@ void Gameplay::update(float dt)
 	if (ship->invincibilityTimer > 0)
 		flickerShip(); //flicker ship if it's invincible
 
-	spawnEnemies();     //spawn enemies if needed 
+	//spawnEnemies();     //spawn enemies if needed 
 	updateEnemies(dt);  //update enemy ships
 	updateBullets(dt);  //update bullets
 	updatePowerups(dt); //update powerups
@@ -164,6 +151,34 @@ void Gameplay::spawnEnemies()
 	}
 }
 
+void Gameplay::spawnPowerups()
+{
+	if (P_Grapple::pGrappleList.size() < 1)
+	{
+		pGrapple = new P_Grapple(Vect2(0, rand() % 5000), Vect2(myRand::getRandNum(120, 80, true), myRand::getRandNum(120, 80, true))); //velocity is random for x and y)
+		this->addChild(largeAsteroid->sprite, 6);
+	}
+
+	//update all powerups
+	//for (int i = 0; i < P_Grapple::pGrappleList.size(); i++)
+	//	P_Grapple::pGrappleList[i]->updatePhysics(dt, ship);
+
+	//for (int i = 0; i < P_LifeUp::pLifeUpList.size(); i++)
+	//	P_LifeUp::pLifeUpList[i]->updatePhysics(dt, ship);
+
+	//for (int i = 0; i < P_ReverseControls::pReverseControlsList.size(); i++)
+	//	P_ReverseControls::pReverseControlsList[i]->updatePhysics(dt, ship);
+
+	//for (int i = 0; i < P_ShieldUp::pShieldUpList.size(); i++)
+	//	P_ShieldUp::pShieldUpList[i]->updatePhysics(dt, ship);
+
+	//for (int i = 0; i < P_SpinEnemies::pSpinEnemiesList.size(); i++)
+	//	P_SpinEnemies::pSpinEnemiesList[i]->updatePhysics(dt, ship);
+
+	//for (int i = 0; i < P_SpinShip::pSpinShipList.size(); i++)
+	//	P_SpinShip::pSpinShipList[i]->updatePhysics(dt, ship);
+}
+
 void Gameplay::updateEnemies(float dt)
 {
 	//update all shooting ships
@@ -197,13 +212,15 @@ void Gameplay::updateEnemies(float dt)
 	//update all large asteroids
 	for (int i = 0; i < LargeAsteroid::largeAsteroidList.size(); i++)
 		LargeAsteroid::largeAsteroidList[i]->updatePhysics(dt, ship, this);
+
+	boss->updatePhysics(dt, this, ship->getPosition());
 }
 
 void Gameplay::updateBullets(float dt)
 {
 	//update all bullets
 	for (int i = 0; i < FriendlyBullet::friendlyBulletList.size(); i++)
-		FriendlyBullet::friendlyBulletList[i]->updatePhysics(dt);
+		FriendlyBullet::friendlyBulletList[i]->updatePhysics(dt, boss);
 	
 	for (int i = 0; i < EnemyBullet::enemyBulletList.size(); i++)
 		EnemyBullet::enemyBulletList[i]->updatePhysics(dt);
@@ -229,6 +246,64 @@ void Gameplay::updatePowerups(float dt)
 
 	for (int i = 0; i < P_SpinShip::pSpinShipList.size(); i++)
 		P_SpinShip::pSpinShipList[i]->updatePhysics(dt, ship);
+}
+
+void Gameplay::spawnBoss()
+{
+	removeAllObjects();
+
+	ship->sprite->setPosition(Vec2(2500, 2500));
+
+	boss = new Boss(Vect2(2500, 3000));
+	this->addChild(boss->sprite, 8);
+}
+
+//removes all game objects from the world
+void Gameplay::removeAllObjects()
+{
+	//enemies
+	for (int i = 0; i < SmallAsteroid::smallAsteroidList.size(); i++)
+		SmallAsteroid::smallAsteroidList[i]->removeAsteroid();
+
+	for (int i = 0; i < LargeAsteroid::largeAsteroidList.size(); i++)
+		LargeAsteroid::largeAsteroidList[i]->removeAsteroid(this, false);
+
+	for (int i = 0; i < SmallAsteroid::smallAsteroidList.size(); i++)
+		SmallAsteroid::smallAsteroidList[i]->removeAsteroid();
+
+	for (int i = 0; i < ShootingShip::shootingShipList.size(); i++)
+		ShootingShip::shootingShipList[i]->removeShip();
+
+	for (int i = 0; i < MovingShip::movingShipList.size(); i++)
+		MovingShip::movingShipList[i]->removeShip();
+
+	for (int i = 0; i < Planet::planetList.size(); i++)
+		Planet::planetList[i]->removeObject();
+
+	for (int i = 0; i < BlackHole::blackHoleList.size(); i++)
+		BlackHole::blackHoleList[i]->removeObject();
+
+	//powerups
+	for (int i = 0; i < P_Grapple::pGrappleList.size(); i++)
+		P_Grapple::pGrappleList[i]->removeObject();
+
+	for (int i = 0; i < P_LifeUp::pLifeUpList.size(); i++)
+		P_LifeUp::pLifeUpList[i]->removeObject();
+
+	for (int i = 0; i < P_ReverseControls::pReverseControlsList.size(); i++)
+		P_ReverseControls::pReverseControlsList[i]->removeObject();
+
+	for (int i = 0; i < P_ShieldUp::pShieldUpList.size(); i++)
+		P_ShieldUp::pShieldUpList[i]->removeObject();
+
+	for (int i = 0; i < P_SpinEnemies::pSpinEnemiesList.size(); i++)
+		P_SpinEnemies::pSpinEnemiesList[i]->removeObject();
+
+	for (int i = 0; i < P_SpinShip::pSpinShipList.size(); i++)
+		P_SpinShip::pSpinShipList[i]->removeObject();
+
+	for (int i = 0; i < EnergyCube::energyCubeList.size(); i++)
+		EnergyCube::energyCubeList[i]->removeObject();
 }
 
 //flickers ship's sprite every 1/10th of a second if it's invincible

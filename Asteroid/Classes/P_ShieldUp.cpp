@@ -13,6 +13,13 @@ void P_ShieldUp::performPowerup(Ship* ship)
 	ship->shieldHealth++;
 }
 
+void P_ShieldUp::removeObject()
+{
+	//remove the object
+	destroySprite();
+	pShieldUpList.erase(std::remove(pShieldUpList.begin(), pShieldUpList.end(), this), pShieldUpList.end());
+}
+
 void P_ShieldUp::updatePhysics(float dt, Ship * ship)
 {
 	Powerup::updatePhysics(dt);

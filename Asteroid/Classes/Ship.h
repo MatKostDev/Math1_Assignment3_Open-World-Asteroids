@@ -41,6 +41,7 @@ public:
 	bool isCollidingWith(ShootingShip* enemyShip);
 	bool isCollidingWith(MovingShip* enemyShip);
 	bool isCollidingWith(Planet* planet);
+	bool isCollidingWith(Boss* boss);
 	bool isCollidingWith(EnemyBullet* bullet);
 	void updatePhysics(float dt, Scene* myScene);
 };

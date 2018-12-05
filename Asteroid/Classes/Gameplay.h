@@ -14,6 +14,8 @@
 #include "P_SpinEnemies.h"
 #include "P_SpinShip.h"
 #include "LargeAsteroid.h"
+#include "EnergyCube.h"
+#include "Boss.h"
 
 using namespace cocos2d;
 
@@ -32,9 +34,12 @@ public:
 
 	void update(float dt);
 	void spawnEnemies();
+	void spawnPowerups();
 	void updateEnemies(float dt);
 	void updateBullets(float dt);
 	void updatePowerups(float dt);
+	void spawnBoss();
+	void removeAllObjects();
 
 	void flickerShip();
 
@@ -70,4 +75,6 @@ private:
 	P_ReverseControls* pReverseControls;
 	P_SpinEnemies* pSpinEnemies;
 	P_SpinShip* pSpinShip;
+
+	Boss* boss;
 };

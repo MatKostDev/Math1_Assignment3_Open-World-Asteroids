@@ -72,14 +72,15 @@ void Ship::takeDamage()
 {
 	if (invincibilityTimer <= 0)
 	{
-		if (lives > 0)
+		if (lives > 0) //if there are any lives left
 		{
-			if (shieldHealth > 0)
+			if (shieldHealth > 1) //if there are any shields left
 				shieldHealth--;
 			else
 			{
 				lives--;
 				shieldHealth = 4;
+				sprite->setPosition(Vec2(2500, 2500));
 			}
 
 			invincibilityTimer = 0.99;

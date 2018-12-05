@@ -13,6 +13,13 @@ void P_SpinShip::performPowerup(Ship* ship)
 	ship->spinTimer = 5;
 }
 
+void P_SpinShip::removeObject()
+{
+	//remove the object
+	destroySprite();
+	pSpinShipList.erase(std::remove(pSpinShipList.begin(), pSpinShipList.end(), this), pSpinShipList.end());
+}
+
 void P_SpinShip::updatePhysics(float dt, Ship * ship)
 {
 	Powerup::updatePhysics(dt);

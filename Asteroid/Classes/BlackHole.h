@@ -13,5 +13,6 @@ public:
 
 	bool isCollidingWith(Ship* ship);
 	bool isCollidingWith(FriendlyBullet* bullet);
+	void removeObject();
 	void updatePhysics(float dt, Ship* ship);
 };

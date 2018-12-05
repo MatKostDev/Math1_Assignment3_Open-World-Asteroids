@@ -5,7 +5,7 @@ std::vector<MovingShip*> MovingShip::movingShipList = std::vector<MovingShip*>()
 MovingShip::MovingShip(Vect2 position) : GameObject(position, "ShootingShip.png"), MOVESPEED(17000)
 {
 	theta = 0;
-	health = 3;
+	health = 2;
 	spinTimer = 0;
 	movingShipList.push_back(this);
 }

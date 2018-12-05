@@ -13,6 +13,13 @@ void P_LifeUp::performPowerup(Ship* ship)
 	ship->lives++;
 }
 
+void P_LifeUp::removeObject()
+{
+	//remove the object
+	destroySprite();
+	pLifeUpList.erase(std::remove(pLifeUpList.begin(), pLifeUpList.end(), this), pLifeUpList.end());
+}
+
 void P_LifeUp::updatePhysics(float dt, Ship * ship)
 {
 	Powerup::updatePhysics(dt);

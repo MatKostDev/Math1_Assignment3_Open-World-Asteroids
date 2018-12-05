@@ -5,7 +5,7 @@ std::vector<FriendlyBullet*> FriendlyBullet::friendlyBulletList = std::vector<Fr
 FriendlyBullet::FriendlyBullet(Vect2 position, float theta) : Bullet(position, theta, "FriendlyBullet.png")
 {
 	friendlyBulletList.push_back(this);
-	lifetime = 0.85;
+	lifetime = 0.8;
 	moveSpeed = 700;
 	moveBullet(moveSpeed);
 }
@@ -52,7 +52,20 @@ bool FriendlyBullet::isCollidingWith(Planet* planet)
 	return false;
 }
 
-void FriendlyBullet::updatePhysics(float dt)
+bool FriendlyBullet::isCollidingWith(Boss* boss)
+{
+	if (GameObject::isCollidingWith(boss))
+	{
+		removeBullet();
+		boss->health--;
+		boss->sprite->setZOrder(0);
+		return true;
+	}
+
+	return false;
+}
+
+void FriendlyBullet::updatePhysics(float dt, Boss* boss)
 {
 	//call base class update
 	Bullet::updatePhysics(dt);
@@ -88,6 +101,12 @@ void FriendlyBullet::updatePhysics(float dt)
 			}
 		}
 	}
+	if (!collision)
+	{
+		if (isCollidingWith(boss))
+			collision = true;
+	}
+
 
 	//remove object if it's expired
 	if (lifetime < 0 && !collision)

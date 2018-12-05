@@ -8,5 +8,6 @@ public:
 
 	static std::vector<EnergyCube*> energyCubeList;
 
+	void removeObject();
 	void updatePhysics(float dt, Ship* ship);
 };

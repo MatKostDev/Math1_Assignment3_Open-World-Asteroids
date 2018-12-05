@@ -44,17 +44,20 @@ void GameObject::destroySprite()
 //checks for collision on two circular objects
 bool GameObject::isCollidingWith(GameObject* otherObject)
 {
-	float dist;
-	float sumRadii;
+	if (otherObject != NULL && otherObject->sprite != NULL)
+	{
+		float dist;
+		float sumRadii;
 
-	//take squared values so we don't have to sqrt the distance
-	sumRadii = (radius + otherObject->radius) * (radius + otherObject->radius);
+		//take squared values so we don't have to sqrt the distance
+		sumRadii = (radius + otherObject->radius) * (radius + otherObject->radius);
 
-	dist = (sprite->getPositionX() - otherObject->sprite->getPositionX()) * (sprite->getPositionX() - otherObject->sprite->getPositionX()) + 
-		   (sprite->getPositionY() - otherObject->sprite->getPositionY()) * (sprite->getPositionY() - otherObject->sprite->getPositionY());
+		dist = (sprite->getPositionX() - otherObject->sprite->getPositionX()) * (sprite->getPositionX() - otherObject->sprite->getPositionX()) +
+			(sprite->getPositionY() - otherObject->sprite->getPositionY()) * (sprite->getPositionY() - otherObject->sprite->getPositionY());
 
-	if (dist < sumRadii)
-		return true;
+		if (dist < sumRadii)
+			return true;
+	}
 
 	return false;
 }

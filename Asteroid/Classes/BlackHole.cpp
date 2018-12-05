@@ -29,6 +29,13 @@ bool BlackHole::isCollidingWith(FriendlyBullet * bullet)
 	return false;
 }
 
+void BlackHole::removeObject()
+{
+	//remove the bullet
+	destroySprite();
+	blackHoleList.erase(std::remove(blackHoleList.begin(), blackHoleList.end(), this), blackHoleList.end());
+}
+
 void BlackHole::updatePhysics(float dt, Ship* ship)
 {
 	//check for collision on the ship

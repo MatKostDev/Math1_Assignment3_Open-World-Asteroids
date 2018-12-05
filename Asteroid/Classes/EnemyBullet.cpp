@@ -5,7 +5,7 @@ std::vector<EnemyBullet*> EnemyBullet::enemyBulletList = std::vector<EnemyBullet
 EnemyBullet::EnemyBullet(Vect2 position, float theta) : Bullet(position, theta, "EnemyBullet.png")
 {
 	enemyBulletList.push_back(this);
-	lifetime = 1.8;
+	lifetime = 2;
 	moveSpeed = 400;
 	moveBullet(moveSpeed);
 }
