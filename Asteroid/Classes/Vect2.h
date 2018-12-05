@@ -42,6 +42,9 @@ public:
 
 	Vect2 operator-() const;
 
+	const float & Vect2::operator[](int index) const;
+	float & Vect2::operator[](int index);
+
 	float getMagnitudeSquared();
 	float dotProduct(const Vect2 rhs);
 	float crossProduct(const Vect2 rhs);

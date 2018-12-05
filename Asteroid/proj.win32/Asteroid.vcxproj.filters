@@ -63,6 +63,7 @@
     <ClCompile Include="..\Classes\myRand.cpp">
       <Filter>src</Filter>
     </ClCompile>
+<<<<<<< Updated upstream
     <ClCompile Include="..\Classes\Powerup.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -84,6 +85,9 @@
     <ClCompile Include="..\Classes\P_SpinShip.cpp">
       <Filter>src</Filter>
     </ClCompile>
+=======
+    <ClCompile Include="Mat2.cpp" />
+>>>>>>> Stashed changes
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -137,6 +141,7 @@
     <ClInclude Include="..\Classes\myRand.h">
       <Filter>src</Filter>
     </ClInclude>
+<<<<<<< Updated upstream
     <ClInclude Include="..\Classes\Powerup.h">
       <Filter>src</Filter>
     </ClInclude>
@@ -156,6 +161,9 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\P_SpinShip.h">
+=======
+    <ClInclude Include="Mat2.h">
+>>>>>>> Stashed changes
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

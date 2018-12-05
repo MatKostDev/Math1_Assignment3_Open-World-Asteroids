@@ -197,6 +197,16 @@ Vect2 Vect2::operator/=(const float a)
 	return *this;
 }
 
+const float & Vect2::operator[](int index) const
+{
+	return (&x)[index];
+}
+
+float & Vect2::operator[](int index)
+{
+	return (&x)[index];
+}
+
 float Vect2::getMagnitudeSquared()
 {
 	return (x * x) + (y * y); //pythagorean theorum
