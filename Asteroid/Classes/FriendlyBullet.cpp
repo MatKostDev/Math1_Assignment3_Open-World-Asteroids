@@ -103,8 +103,14 @@ void FriendlyBullet::updatePhysics(float dt, Boss* boss)
 	}
 	if (!collision)
 	{
-		if (isCollidingWith(boss))
-			collision = true;
+		for (int i = 0; i < Boss::bossList.size(); i++)
+		{
+			if (isCollidingWith(Boss::bossList[i]))
+			{
+				collision = true;
+				break;
+			}
+		}
 	}
 
 

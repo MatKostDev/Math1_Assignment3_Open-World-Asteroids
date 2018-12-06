@@ -14,6 +14,8 @@ bool Gameplay::init()
 	srand(time(NULL)); //seed rng
 	director = Director::getInstance();
 
+	bossBattle = false;
+
 	initListeners();
 	initSprites();
 
@@ -95,10 +97,20 @@ void Gameplay::update(float dt)
 	if (ship->invincibilityTimer > 0)
 		flickerShip(); //flicker ship if it's invincible
 
-	//spawnEnemies();     //spawn enemies if needed 
+	if (Boss::bossList.size() == 0)
+	{
+		spawnEnemies();     //spawn enemies if needed 
+		spawnPowerups();    //spawn powerups if needed
+	}
 	updateEnemies(dt);  //update enemy ships
 	updateBullets(dt);  //update bullets
 	updatePowerups(dt); //update powerups
+
+	if (ship->numEnergyCubes == 1)
+	{
+		spawnBoss();
+		ship->numEnergyCubes = 0;
+	}
 }
 
 void Gameplay::spawnEnemies()
@@ -153,30 +165,41 @@ void Gameplay::spawnEnemies()
 
 void Gameplay::spawnPowerups()
 {
-	if (P_Grapple::pGrappleList.size() < 1)
+	//if (P_Grapple::pGrappleList.size() < 1)
+	//{
+	//	pGrapple = new P_Grapple(Vect2(myRand::getRandNum(120, 80, true), myRand::getRandNum(120, 80, true)), Vect2(0, rand() % 5000)); //velocity is random for x and y)
+	//	this->addChild(pGrapple->sprite, 6);
+	//}
+	//if (P_LifeUp::pLifeUpList.size() < 1)
+	//{
+	//	pLifeUp = new P_LifeUp(Vect2(myRand::getRandNum(120, 80, true), myRand::getRandNum(120, 80, true)), Vect2(0, rand() % 5000)); //velocity is random for x and y)
+	//	this->addChild(pLifeUp->sprite, 6);
+	//}
+	//if (P_ShieldUp::pShieldUpList.size() < 1)
+	//{
+	//	pShieldUp = new P_ShieldUp(Vect2(myRand::getRandNum(120, 80, true), myRand::getRandNum(120, 80, true)), Vect2(0, rand() % 5000)); //velocity is random for x and y)
+	//	this->addChild(pShieldUp->sprite, 6);
+	//}
+	if (P_ReverseControls::pReverseControlsList.size() < 1)
 	{
-		pGrapple = new P_Grapple(Vect2(0, rand() % 5000), Vect2(myRand::getRandNum(120, 80, true), myRand::getRandNum(120, 80, true))); //velocity is random for x and y)
-		this->addChild(largeAsteroid->sprite, 6);
+		pReverseControls = new P_ReverseControls(Vect2(myRand::getRandNum(120, 80, true), myRand::getRandNum(120, 80, true)), Vect2(0, rand() % 5000)); //velocity is random for x and y)
+		this->addChild(pReverseControls->sprite, 6);
 	}
-
-	//update all powerups
-	//for (int i = 0; i < P_Grapple::pGrappleList.size(); i++)
-	//	P_Grapple::pGrappleList[i]->updatePhysics(dt, ship);
-
-	//for (int i = 0; i < P_LifeUp::pLifeUpList.size(); i++)
-	//	P_LifeUp::pLifeUpList[i]->updatePhysics(dt, ship);
-
-	//for (int i = 0; i < P_ReverseControls::pReverseControlsList.size(); i++)
-	//	P_ReverseControls::pReverseControlsList[i]->updatePhysics(dt, ship);
-
-	//for (int i = 0; i < P_ShieldUp::pShieldUpList.size(); i++)
-	//	P_ShieldUp::pShieldUpList[i]->updatePhysics(dt, ship);
-
-	//for (int i = 0; i < P_SpinEnemies::pSpinEnemiesList.size(); i++)
-	//	P_SpinEnemies::pSpinEnemiesList[i]->updatePhysics(dt, ship);
-
-	//for (int i = 0; i < P_SpinShip::pSpinShipList.size(); i++)
-	//	P_SpinShip::pSpinShipList[i]->updatePhysics(dt, ship);
+	if (P_SpinEnemies::pSpinEnemiesList.size() < 1)
+	{
+		pSpinEnemies = new P_SpinEnemies(Vect2(myRand::getRandNum(120, 80, true), myRand::getRandNum(120, 80, true)), Vect2(0, rand() % 5000)); //velocity is random for x and y)
+		this->addChild(pSpinEnemies->sprite, 6);
+	}
+	if (P_SpinShip::pSpinShipList.size() < 1)
+	{
+		pSpinShip = new P_SpinShip(Vect2(myRand::getRandNum(120, 80, true), myRand::getRandNum(120, 80, true)), Vect2(0, rand() % 5000)); //velocity is random for x and y)
+		this->addChild(pSpinShip->sprite, 6);
+	}
+	if (EnergyCube::energyCubeList.size() < 4)
+	{
+		energyCube = new EnergyCube(Vect2(myRand::getRandNum(120, 80, true), myRand::getRandNum(120, 80, true)), Vect2(0, rand() % 5000)); //velocity is random for x and y)
+		this->addChild(energyCube->sprite, 6);
+	}
 }
 
 void Gameplay::updateEnemies(float dt)
@@ -213,7 +236,8 @@ void Gameplay::updateEnemies(float dt)
 	for (int i = 0; i < LargeAsteroid::largeAsteroidList.size(); i++)
 		LargeAsteroid::largeAsteroidList[i]->updatePhysics(dt, ship, this);
 
-	boss->updatePhysics(dt, this, ship->getPosition());
+	if (Boss::bossList.size() > 0)
+		boss->updatePhysics(dt, this, ship->getPosition());
 }
 
 void Gameplay::updateBullets(float dt)
@@ -246,10 +270,14 @@ void Gameplay::updatePowerups(float dt)
 
 	for (int i = 0; i < P_SpinShip::pSpinShipList.size(); i++)
 		P_SpinShip::pSpinShipList[i]->updatePhysics(dt, ship);
+
+	for (int i = 0; i < EnergyCube::energyCubeList.size(); i++)
+		EnergyCube::energyCubeList[i]->updatePhysics(dt, ship);
 }
 
 void Gameplay::spawnBoss()
 {
+	bossBattle = true;
 	removeAllObjects();
 
 	ship->sprite->setPosition(Vec2(2500, 2500));

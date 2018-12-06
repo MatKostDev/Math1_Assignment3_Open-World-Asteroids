@@ -25,6 +25,8 @@ public:
 	CREATE_FUNC(Gameplay);
 	static Scene* createScene();
 
+	bool bossBattle;
+
 	virtual bool init();
 	void initUI();
 	void initSprites();
@@ -75,6 +77,7 @@ private:
 	P_ReverseControls* pReverseControls;
 	P_SpinEnemies* pSpinEnemies;
 	P_SpinShip* pSpinShip;
+	EnergyCube* energyCube;
 
 	Boss* boss;
 };

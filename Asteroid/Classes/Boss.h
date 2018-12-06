@@ -6,6 +6,8 @@ class Boss : public GameObject
 public:
 	Boss(Vect2 position);
 
+	static std::vector<Boss*> bossList;
+
 	const float ACTION_TIME;
 	const float SHOT_DELAY;
 

@@ -1,5 +1,7 @@
 #include "Boss.h"
 
+std::vector<Boss*> Boss::bossList = std::vector<Boss*>();
+
 Boss::Boss(Vect2 position) : GameObject(position, "Boss.png"), ACTION_TIME(10), SHOT_DELAY(0.1)
 {
 	actionOneTimer = 1;
@@ -13,10 +15,8 @@ Boss::Boss(Vect2 position) : GameObject(position, "Boss.png"), ACTION_TIME(10), 
 	bulletTheta = 0;
 	shootDelay = 0;
 	health = 90;
-}
 
-void Boss::removeObject()
-{
+	bossList.push_back(this);
 }
 
 void Boss::shootBullet(Scene* myScene)
@@ -108,5 +108,8 @@ void Boss::updatePhysics(float dt, Scene* myScene, Vect2 shipPosition)
 
 	//check if boss is dead
 	if (health <= 0)
+	{
 		destroySprite();
+		bossList.erase(std::remove(bossList.begin(), bossList.end(), this), bossList.end());
+	}
 }
