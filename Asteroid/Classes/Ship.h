@@ -1,6 +1,8 @@
 #pragma once
 #include "cocos2d.h"
 #include "FriendlyBullet.h"
+#include "Mat2.h"
+
 using namespace cocos2d;
 
 class Ship : public GameObject
@@ -25,6 +27,9 @@ public:
 	bool isMovingRight;
 	bool isRotatingClockwise;
 	bool isRotatingCounterClockwise;
+
+	Mat2 temp;
+	Mat4 rotation;
 
 	void moveForward(float dt);
 	void moveBackward(float dt);

@@ -2,7 +2,7 @@
 
 std::vector<ShootingShip*> ShootingShip::shootingShipList = std::vector<ShootingShip*>();
 
-ShootingShip::ShootingShip(Vect2 position) : GameObject(position, "ShootingShip.png")
+ShootingShip::ShootingShip(Vect2 position) : GameObject(position, "SShip.png")
 {
 	theta = 0;
 	shootTimer = 0;

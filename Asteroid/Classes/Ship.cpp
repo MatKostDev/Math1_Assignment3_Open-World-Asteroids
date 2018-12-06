@@ -52,12 +52,26 @@ void Ship::moveRight(float dt)
 void Ship::rotateClockwise(float dt)
 {
 	theta += 150 * dt;
-	sprite->runAction(RotateTo::create(0, theta)); //update the sprite's rotation
+	temp.Rotate(theta);
+	Mat4 rotation(temp.data[0][0], temp.data[0][1], 0, 0, 
+		   		 temp.data[1][0], temp.data[1][1], 0, 0, 
+				 0, 0, 1.0, 0, 
+				 0, 0, 0, 1.0);
+	sprite->setAdditionalTransform((Mat4*)(&rotation));
+	sprite->setRotation(theta);
+	//sprite->runAction(RotateTo::create(0, theta)); //update the sprite's rotation
 }
 void Ship::rotateCounterClockwise(float dt)
 {
 	theta -= 150 * dt;
-	sprite->runAction(RotateTo::create(0, theta)); //update the sprite's rotation
+	temp.Rotate(theta);
+	Mat4 rotation(temp.data[0][0], temp.data[0][1], 0, 0,
+		temp.data[1][0], temp.data[1][1], 0, 0,
+		0, 0, 1.0, 0,
+		0, 0, 0, 1.0);
+	sprite->setAdditionalTransform((Mat4*)(&rotation));
+	sprite->setRotation(theta);
+	//sprite->runAction(RotateTo::create(0, theta)); //update the sprite's rotation
 }
 
 FriendlyBullet* Ship::shootBullet()

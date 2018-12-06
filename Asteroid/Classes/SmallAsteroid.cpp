@@ -2,7 +2,7 @@
 
 std::vector<SmallAsteroid*> SmallAsteroid::smallAsteroidList = std::vector<SmallAsteroid*>();
 
-SmallAsteroid::SmallAsteroid(Vect2 position, Vect2 startVelocity) : GameObject(position, "SmallAsteroid.png")
+SmallAsteroid::SmallAsteroid(Vect2 position, Vect2 startVelocity) : GameObject(position, "SAsteroid.png")
 {
 	velocity = startVelocity;
 	smallAsteroidList.push_back(this);

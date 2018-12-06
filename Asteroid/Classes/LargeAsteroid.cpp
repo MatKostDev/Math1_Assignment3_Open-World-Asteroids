@@ -2,7 +2,7 @@
 
 std::vector<LargeAsteroid*> LargeAsteroid::largeAsteroidList = std::vector<LargeAsteroid*>();
 
-LargeAsteroid::LargeAsteroid(Vect2 position, Vect2 startVelocity) : GameObject(position, "LargeAsteroid.png")
+LargeAsteroid::LargeAsteroid(Vect2 position, Vect2 startVelocity) : GameObject(position, "LAsteroid.png")
 {
 	velocity = startVelocity;
 	largeAsteroidList.push_back(this);
