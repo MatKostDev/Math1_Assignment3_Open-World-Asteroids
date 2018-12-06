@@ -158,6 +158,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\Gameplay.cpp" />
     <ClCompile Include="..\Classes\InputHandler.cpp" />
     <ClCompile Include="..\Classes\LargeAsteroid.cpp" />
+    <ClCompile Include="..\Classes\Mat2.cpp" />
     <ClCompile Include="..\Classes\MovingShip.cpp" />
     <ClCompile Include="..\Classes\myRand.cpp" />
     <ClCompile Include="..\Classes\Planet.cpp" />
@@ -173,7 +174,6 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\SmallAsteroid.cpp" />
     <ClCompile Include="..\Classes\Vect2.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Mat2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h" />
@@ -185,6 +185,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Gameplay.h" />
     <ClInclude Include="..\Classes\InputHandler.h" />
     <ClInclude Include="..\Classes\LargeAsteroid.h" />
+    <ClInclude Include="..\Classes\Mat2.h" />
     <ClInclude Include="..\Classes\MovingShip.h" />
     <ClInclude Include="..\Classes\myRand.h" />
     <ClInclude Include="..\Classes\Planet.h" />
@@ -200,7 +201,6 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\SmallAsteroid.h" />
     <ClInclude Include="..\Classes\Vect2.h" />
     <ClInclude Include="main.h" />
-    <ClInclude Include="Mat2.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\cocos2d\cocos\2d\libcocos2d.vcxproj">

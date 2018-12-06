@@ -1,175 +1,60 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="win32">
-      <UniqueIdentifier>{84a8ebd7-7cf0-47f6-b75e-d441df67da40}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="resource">
-      <UniqueIdentifier>{715254bc-d70b-4ec5-bf29-467dd3ace079}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src">
-      <UniqueIdentifier>{bb6c862e-70e9-49d9-81b7-3829a6f50471}</UniqueIdentifier>
-    </Filter>
+    <ClCompile Include="..\Classes\AppDelegate.cpp" />
+    <ClCompile Include="..\Classes\BlackHole.cpp" />
+    <ClCompile Include="..\Classes\Bullet.cpp" />
+    <ClCompile Include="..\Classes\EnemyBullet.cpp" />
+    <ClCompile Include="..\Classes\FriendlyBullet.cpp" />
+    <ClCompile Include="..\Classes\GameObject.cpp" />
+    <ClCompile Include="..\Classes\Gameplay.cpp" />
+    <ClCompile Include="..\Classes\InputHandler.cpp" />
+    <ClCompile Include="..\Classes\LargeAsteroid.cpp" />
+    <ClCompile Include="..\Classes\MovingShip.cpp" />
+    <ClCompile Include="..\Classes\myRand.cpp" />
+    <ClCompile Include="..\Classes\Planet.cpp" />
+    <ClCompile Include="..\Classes\Powerup.cpp" />
+    <ClCompile Include="..\Classes\P_Grapple.cpp" />
+    <ClCompile Include="..\Classes\P_LifeUp.cpp" />
+    <ClCompile Include="..\Classes\P_ReverseControls.cpp" />
+    <ClCompile Include="..\Classes\P_ShieldUp.cpp" />
+    <ClCompile Include="..\Classes\P_SpinEnemies.cpp" />
+    <ClCompile Include="..\Classes\P_SpinShip.cpp" />
+    <ClCompile Include="..\Classes\Ship.cpp" />
+    <ClCompile Include="..\Classes\ShootingShip.cpp" />
+    <ClCompile Include="..\Classes\SmallAsteroid.cpp" />
+    <ClCompile Include="..\Classes\Vect2.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="..\Classes\Mat2.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>win32</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\AppDelegate.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Gameplay.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Ship.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\GameObject.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\InputHandler.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Bullet.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\MovingShip.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\ShootingShip.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Vect2.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\EnemyBullet.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\FriendlyBullet.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\BlackHole.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Planet.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\LargeAsteroid.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\SmallAsteroid.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\myRand.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-<<<<<<< Updated upstream
-    <ClCompile Include="..\Classes\Powerup.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\P_Grapple.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\P_LifeUp.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\P_ReverseControls.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\P_ShieldUp.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\P_SpinEnemies.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\P_SpinShip.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-=======
-    <ClCompile Include="Mat2.cpp" />
->>>>>>> Stashed changes
+    <ClInclude Include="..\Classes\AppDelegate.h" />
+    <ClInclude Include="..\Classes\BlackHole.h" />
+    <ClInclude Include="..\Classes\Bullet.h" />
+    <ClInclude Include="..\Classes\EnemyBullet.h" />
+    <ClInclude Include="..\Classes\FriendlyBullet.h" />
+    <ClInclude Include="..\Classes\GameObject.h" />
+    <ClInclude Include="..\Classes\Gameplay.h" />
+    <ClInclude Include="..\Classes\InputHandler.h" />
+    <ClInclude Include="..\Classes\LargeAsteroid.h" />
+    <ClInclude Include="..\Classes\MovingShip.h" />
+    <ClInclude Include="..\Classes\myRand.h" />
+    <ClInclude Include="..\Classes\Planet.h" />
+    <ClInclude Include="..\Classes\Powerup.h" />
+    <ClInclude Include="..\Classes\P_Grapple.h" />
+    <ClInclude Include="..\Classes\P_LifeUp.h" />
+    <ClInclude Include="..\Classes\P_ReverseControls.h" />
+    <ClInclude Include="..\Classes\P_ShieldUp.h" />
+    <ClInclude Include="..\Classes\P_SpinEnemies.h" />
+    <ClInclude Include="..\Classes\P_SpinShip.h" />
+    <ClInclude Include="..\Classes\Ship.h" />
+    <ClInclude Include="..\Classes\ShootingShip.h" />
+    <ClInclude Include="..\Classes\SmallAsteroid.h" />
+    <ClInclude Include="..\Classes\Vect2.h" />
+    <ClInclude Include="main.h" />
+    <ClInclude Include="..\Classes\Mat2.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="main.h">
-      <Filter>win32</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\AppDelegate.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Gameplay.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Ship.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\GameObject.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\InputHandler.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Bullet.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\MovingShip.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\ShootingShip.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Vect2.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\EnemyBullet.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\FriendlyBullet.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\BlackHole.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Planet.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\LargeAsteroid.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\SmallAsteroid.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\myRand.h">
-      <Filter>src</Filter>
-    </ClInclude>
-<<<<<<< Updated upstream
-    <ClInclude Include="..\Classes\Powerup.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\P_Grapple.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\P_LifeUp.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\P_ReverseControls.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\P_ShieldUp.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\P_SpinEnemies.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\P_SpinShip.h">
-=======
-    <ClInclude Include="Mat2.h">
->>>>>>> Stashed changes
-      <Filter>src</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="game.rc">
-      <Filter>resource</Filter>
-    </ResourceCompile>
+    <ResourceCompile Include="game.rc" />
   </ItemGroup>
 </Project>
